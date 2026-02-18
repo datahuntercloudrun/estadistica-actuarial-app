@@ -362,17 +362,21 @@ function Ejercicio2() {
           {/* c) */}
           <div className="space-y-3">
             <h4 className="font-semibold text-red-700">
-              c) Supervivientes al primer aniversario, generación 1901 → Punto en la diagonal
+              c) Supervivientes al primer aniversario, generación 1901 → Segmento horizontal a edad 1
             </h4>
             <p className="text-sm">
               Los supervivientes de la generación 1901 que llegan a su primer aniversario
-              constituyen un <strong>stock puntual</strong> sobre la linea de vida de la
-              cohorte 1901, justo donde cruza la edad exacta 1. Esto ocurre a lo largo del
-              año 1902. Se denota como l₁ de la generación 1901.
+              se denotan como <strong>l₁(gen. 1901)</strong>. Se trata de un{" "}
+              <strong>stock</strong> que se representa como un{" "}
+              <strong>segmento horizontal sobre la linea de edad exacta 1</strong>,
+              desde el año 1902 hasta el año 1903.
             </p>
             <p className="text-sm text-muted-foreground">
-              Bajo la hipotesis de uniformidad, el punto medio se sitúa en la mitad del
-              año 1902 a edad exacta 1.
+              ¿Por qué de 1902 a 1903? Porque la generación 1901 nace a lo largo de
+              todo el año 1901: los nacidos el 1/1/1901 cumplen 1 año el 1/1/1902, y
+              los nacidos el 31/12/1901 cumplen 1 año el 31/12/1902. Por tanto, el
+              conjunto de supervivientes a edad exacta 1 se extiende a lo largo de
+              todo el año 1902 sobre la linea horizontal de edad 1.
             </p>
             <div className="max-w-xl mx-auto">
               <LexisDiagram config={configC} />
@@ -732,48 +736,51 @@ function Ejercicio3() {
       { x: 1999.5, y: -0.3, text: "2170", fontSize: 9, color: "#ef4444" },
       { x: 2000.5, y: -0.3, text: "2209", fontSize: 9, color: "#8b5cf6" },
 
-      // Lower triangles (gen 1996)
-      { x: 1996.35, y: 0.25, text: "21", fontSize: 8, color: "#333" },
-      { x: 1997.35, y: 1.25, text: "1", fontSize: 8, color: "#333" },
-      { x: 1998.35, y: 2.25, text: "1", fontSize: 8, color: "#333" },
-      { x: 1999.35, y: 3.25, text: "0", fontSize: 8, color: "#333" },
-      { x: 2000.35, y: 4.25, text: "0", fontSize: 8, color: "#333" },
+      // Triángulo inferior: centroide en (año+0.67, edad+0.33)
+      // Triángulo superior: centroide en (año+0.33, edad+0.67)
 
-      // Upper triangles (gen 1996)
-      { x: 1997.65, y: 0.75, text: "1", fontSize: 8, color: "#333" },
-      { x: 1998.65, y: 1.75, text: "0", fontSize: 8, color: "#333" },
-      { x: 1999.65, y: 2.75, text: "1", fontSize: 8, color: "#333" },
-      { x: 2000.65, y: 3.75, text: "0", fontSize: 8, color: "#333" },
+      // Lower triangles (gen 1996): año=c+x, edad=x
+      { x: 1996.67, y: 0.33, text: "21", fontSize: 10, color: "#333" },
+      { x: 1997.67, y: 1.33, text: "1", fontSize: 10, color: "#333" },
+      { x: 1998.67, y: 2.33, text: "1", fontSize: 10, color: "#333" },
+      { x: 1999.67, y: 3.33, text: "0", fontSize: 10, color: "#333" },
+      { x: 2000.67, y: 4.33, text: "0", fontSize: 10, color: "#333" },
+
+      // Upper triangles (gen 1996): año=c+x+1, edad=x
+      { x: 1997.33, y: 0.67, text: "1", fontSize: 10, color: "#333" },
+      { x: 1998.33, y: 1.67, text: "0", fontSize: 10, color: "#333" },
+      { x: 1999.33, y: 2.67, text: "1", fontSize: 10, color: "#333" },
+      { x: 2000.33, y: 3.67, text: "0", fontSize: 10, color: "#333" },
 
       // Lower triangles (gen 1997)
-      { x: 1997.35, y: 0.25, text: "36", fontSize: 8, color: "#333" },
-      { x: 1998.35, y: 1.25, text: "3", fontSize: 8, color: "#333" },
-      { x: 1999.35, y: 2.25, text: "1", fontSize: 8, color: "#333" },
-      { x: 2000.35, y: 3.25, text: "1", fontSize: 8, color: "#333" },
+      { x: 1997.67, y: 0.33, text: "36", fontSize: 10, color: "#333" },
+      { x: 1998.67, y: 1.33, text: "3", fontSize: 10, color: "#333" },
+      { x: 1999.67, y: 2.33, text: "1", fontSize: 10, color: "#333" },
+      { x: 2000.67, y: 3.33, text: "1", fontSize: 10, color: "#333" },
 
       // Upper triangles (gen 1997)
-      { x: 1998.65, y: 0.75, text: "7", fontSize: 8, color: "#333" },
-      { x: 1999.65, y: 1.75, text: "3", fontSize: 8, color: "#333" },
-      { x: 2000.65, y: 2.75, text: "1", fontSize: 8, color: "#333" },
+      { x: 1998.33, y: 0.67, text: "7", fontSize: 10, color: "#333" },
+      { x: 1999.33, y: 1.67, text: "3", fontSize: 10, color: "#333" },
+      { x: 2000.33, y: 2.67, text: "1", fontSize: 10, color: "#333" },
 
       // Lower triangles (gen 1998)
-      { x: 1998.35, y: 0.25, text: "23", fontSize: 8, color: "#333" },
-      { x: 1999.35, y: 1.25, text: "1", fontSize: 8, color: "#333" },
-      { x: 2000.35, y: 2.25, text: "0", fontSize: 8, color: "#333" },
+      { x: 1998.67, y: 0.33, text: "23", fontSize: 10, color: "#333" },
+      { x: 1999.67, y: 1.33, text: "1", fontSize: 10, color: "#333" },
+      { x: 2000.67, y: 2.33, text: "0", fontSize: 10, color: "#333" },
 
       // Upper triangles (gen 1998)
-      { x: 1999.65, y: 0.75, text: "2", fontSize: 8, color: "#333" },
-      { x: 2000.65, y: 1.75, text: "2", fontSize: 8, color: "#333" },
+      { x: 1999.33, y: 0.67, text: "2", fontSize: 10, color: "#333" },
+      { x: 2000.33, y: 1.67, text: "2", fontSize: 10, color: "#333" },
 
       // Lower triangles (gen 1999)
-      { x: 1999.35, y: 0.25, text: "20", fontSize: 8, color: "#333" },
-      { x: 2000.35, y: 1.25, text: "1", fontSize: 8, color: "#333" },
+      { x: 1999.67, y: 0.33, text: "20", fontSize: 10, color: "#333" },
+      { x: 2000.67, y: 1.33, text: "1", fontSize: 10, color: "#333" },
 
       // Upper triangles (gen 1999)
-      { x: 2000.65, y: 0.75, text: "4", fontSize: 8, color: "#333" },
+      { x: 2000.33, y: 0.67, text: "4", fontSize: 10, color: "#333" },
 
       // Lower triangle (gen 2000)
-      { x: 2000.35, y: 0.25, text: "23", fontSize: 8, color: "#333" },
+      { x: 2000.67, y: 0.33, text: "23", fontSize: 10, color: "#333" },
     ],
   };
 

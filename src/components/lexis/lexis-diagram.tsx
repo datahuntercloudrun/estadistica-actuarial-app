@@ -15,7 +15,7 @@ interface LexisDiagramProps {
 }
 
 const PADDING_LEFT = 40;
-const PADDING_BOTTOM = 20;
+const PADDING_BOTTOM = 40;
 const PADDING_TOP = 10;
 const PADDING_RIGHT = 10;
 

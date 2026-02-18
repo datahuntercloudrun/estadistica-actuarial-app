@@ -37,7 +37,7 @@ export default function RootLayout({
           <TooltipProvider>
             <SidebarProvider>
               <AppSidebar />
-              <SidebarInset className="h-svh !block overflow-y-auto overflow-x-hidden">
+              <SidebarInset className="min-h-dvh !block overflow-y-auto overflow-x-hidden">
                 <Header />
                 <main className="p-3 sm:p-4 md:p-6 relative">
                   {children}

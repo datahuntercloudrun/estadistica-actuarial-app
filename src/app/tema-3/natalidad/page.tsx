@@ -292,7 +292,7 @@ export default function NatalidadPage() {
         <p className="text-sm text-muted-foreground">
           Las <strong>tasas brutas</strong> se obtienen dividiendo los nacimientos, defunciones,
           inmigrantes y emigrantes registrados en un per&iacute;odo entre la poblaci&oacute;n media{" "}
-          <FormulaDisplay math="\bar{P}" /> de dicho per&iacute;odo. Se expresan habitualmente en tantos
+          <FormulaDisplay math="\\bar{P}" /> de dicho per&iacute;odo. Se expresan habitualmente en tantos
           por mil.
         </p>
 
@@ -321,7 +321,7 @@ export default function NatalidadPage() {
           <FormulaCard
             name="Tasa Bruta de Natalidad"
             abbreviation="TBN"
-            fórmula="TBN(t, t+n) = \frac{N(t, t+n)}{\dfrac{P(t) + P(t+n)}{2}} \times 1000"
+            fórmula="TBN(t, t+n) = \\frac{N(t, t+n)}{\\dfrac{P(t) + P(t+n)}{2}} \\times 1000"
             description="Mide la frecuencia de nacimientos en relaci&oacute;n con la poblaci&oacute;n media a lo largo de un a&ntilde;o natural. Es el indicador b&aacute;sico pero tiene el inconveniente de estar muy condicionado por la estructura de edad de la poblaci&oacute;n."
             variables={[
               { symbol: "N(t, t+n)", meaning: "Nacimientos entre los instantes t y t+n" },
@@ -351,7 +351,7 @@ export default function NatalidadPage() {
           <FormulaCard
             name="Tasa General de Fecundidad"
             abbreviation="TGF"
-            fórmula="TGF(t, t+n) = \frac{N(t, t+n)}{\dfrac{Pf_{15\text{-}49}(t) + Pf_{15\text{-}49}(t+n)}{2}} \times 1000"
+            fórmula="TGF(t, t+n) = \\frac{N(t, t+n)}{\\dfrac{Pf_{15\\text{-}49}(t) + Pf_{15\\text{-}49}(t+n)}{2}} \\times 1000"
             description="Mide la frecuencia del suceso nacimiento entre las mujeres en edad f&eacute;rtil (15-49 a&ntilde;os). Aporta mayor precisi&oacute;n al relacionar el suceso con la poblaci&oacute;n determinante del mismo, evitando distorsiones por composici&oacute;n de sexo y edad."
             variables={[
               { symbol: "N(t, t+n)", meaning: "Nacimientos en el per\u00edodo" },
@@ -379,7 +379,7 @@ export default function NatalidadPage() {
           <FormulaCard
             name="Tasa Espec&iacute;fica de Fecundidad por Edad"
             abbreviation="TEF_x"
-            fórmula="TEF_x^t = \frac{N_x^t}{\bar{P}_{f,x}^t} \times 1000"
+            fórmula="TEF_x^t = \\frac{N_x^t}{\\bar{P}_{f,x}^t} \\times 1000"
             description="Calcula la frecuencia de nacimientos para subpoblaciones de mujeres de una edad concreta (x). Elimina totalmente el efecto de la estructura por edades. Cuando se consideran exclusivamente los nacidos mujeres, se denomina Tasa Espec&iacute;fica de Fecundidad Femenina por Edad (TEFf_x)."
             variables={[
               { symbol: "N_x^t", meaning: "Nacimientos de madres de edad x en el a\u00f1o t" },
@@ -420,7 +420,7 @@ export default function NatalidadPage() {
             <FormulaCard
               name="ISF (m&eacute;todo simplificado)"
               abbreviation="ISF"
-              fórmula="ISF_t = \frac{TGF_t}{1000} \times 35"
+              fórmula="ISF_t = \\frac{TGF_t}{1000} \\times 35"
               description="M&eacute;todo m&aacute;s simple: parte de la TGF y la multiplica por la amplitud del per&iacute;odo f&eacute;rtil (35 a&ntilde;os). Puede arrastrar sesgos de la estructura por edades sobre la TGF."
               variables={[
                 { symbol: "TGF_t", meaning: "Tasa General de Fecundidad del a\u00f1o t" },
@@ -430,7 +430,7 @@ export default function NatalidadPage() {
             <FormulaCard
               name="ISF (m&eacute;todo preciso)"
               abbreviation="ISF"
-              fórmula="ISF_t = \frac{1}{1000} \sum_{x=15}^{49} TEF_x^t"
+              fórmula="ISF_t = \\frac{1}{1000} \\sum_{x=15}^{49} TEF_x^t"
               description="M&eacute;todo m&aacute;s preciso: suma de todas las tasas espec&iacute;ficas de fecundidad por edades simples, dividida entre 1000. Equivale a la suma de los nacimientos reducidos de cada grupo de edad."
               variables={[
                 { symbol: "TEF_x^t", meaning: "Tasa espec\u00edfica de fecundidad a la edad x, en el a\u00f1o t" },
@@ -445,7 +445,7 @@ export default function NatalidadPage() {
               5 a&ntilde;os de edad, y despu&eacute;s dividir entre 1000:
             </p>
             <FormulaDisplay
-              math="ISF_t = \frac{\sum TEF_{\text{grupo}} \times 5}{1000}"
+              math="ISF_t = \\frac{\\sum TEF_{\\text{grupo}} \\times 5}{1000}"
               block
             />
           </ConceptCard>
@@ -482,7 +482,7 @@ export default function NatalidadPage() {
             <FormulaCard
               name="TBR (m&eacute;todo simplificado)"
               abbreviation="TBR"
-              fórmula="TBR_t = ISF_t \times \frac{N^f_t}{N_t}"
+              fórmula="TBR_t = ISF_t \\times \\frac{N^f_t}{N_t}"
               description="Se multiplica el ISF por la proporci&oacute;n de nacimientos femeninos (gender ratio). M&eacute;todo m&aacute;s simple."
               variables={[
                 { symbol: "ISF_t", meaning: "\u00cdndice Sint\u00e9tico de Fecundidad del a\u00f1o t" },
@@ -494,7 +494,7 @@ export default function NatalidadPage() {
             <FormulaCard
               name="TBR (m&eacute;todo preciso)"
               abbreviation="TBR"
-              fórmula="TBR_t = \frac{1}{1000} \sum_{x=15}^{49} TEFf_x^t"
+              fórmula="TBR_t = \\frac{1}{1000} \\sum_{x=15}^{49} TEFf_x^t"
               description="Se suman las tasas espec&iacute;ficas de fecundidad femenina por edad (solo nacidos mujeres). Resultado m&aacute;s preciso."
               variables={[
                 { symbol: "TEFf_x^t", meaning: "Tasa espec\u00edfica de fecundidad femenina a la edad x" },
@@ -564,7 +564,7 @@ export default function NatalidadPage() {
             <FormulaCard
               name="TNR (m&eacute;todo simplificado)"
               abbreviation="TNR"
-              fórmula="TNR_t = ISF_t \times \frac{L_x}{L_0} \times \frac{N^f_t}{N_t}"
+              fórmula="TNR_t = ISF_t \\times \\frac{L_x}{L_0} \\times \\frac{N^f_t}{N_t}"
               description="Se multiplica el ISF por la proporci&oacute;n de supervivientes (tabla de mortalidad) y por el gender ratio."
               variables={[
                 { symbol: "L_x", meaning: "Supervivientes a la edad x seg\u00fan la tabla de mortalidad" },
@@ -575,7 +575,7 @@ export default function NatalidadPage() {
             <FormulaCard
               name="TNR (m&eacute;todo preciso)"
               abbreviation="TNR"
-              fórmula="TNR_t = \frac{1}{1000} \sum_{x=15}^{49} TEFf_x^t \times \frac{L_x}{L_0}"
+              fórmula="TNR_t = \\frac{1}{1000} \\sum_{x=15}^{49} TEFf_x^t \\times \\frac{L_x}{L_0}"
               description="Se ponderan las tasas espec&iacute;ficas de fecundidad femenina por la probabilidad de sobrevivir hasta cada edad. Resultado m&aacute;s preciso."
               variables={[
                 { symbol: "TEFf_x^t", meaning: "Tasa espec\u00edfica de fecundidad femenina a la edad x" },
@@ -593,7 +593,7 @@ export default function NatalidadPage() {
             <FormulaCard
               name="&Iacute;ndice de masculinidad al nacimiento"
               abbreviation="IM"
-              fórmula="IM_t = \frac{N^m_t}{N^f_t}"
+              fórmula="IM_t = \\frac{N^m_t}{N^f_t}"
               description="Relaci&oacute;n entre nacidos varones y nacidas mujeres. Suele ser mayor que 1 al nacimiento (nacen m&aacute;s varones). A edades m&aacute;s altas disminuye porque la mortalidad masculina es mayor que la femenina."
               variables={[
                 { symbol: "N^m_t", meaning: "Nacidos varones en el a\u00f1o t" },

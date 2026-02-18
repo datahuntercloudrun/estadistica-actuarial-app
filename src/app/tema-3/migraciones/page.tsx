@@ -355,7 +355,7 @@ export default function MigracionesPage() {
           <FormulaCard
             name="Tasa Bruta de Inmigraci&oacute;n (&Iacute;ndice de atracci&oacute;n)"
             abbreviation="TBI"
-            fórmula="TBI_t = \frac{I_t}{\bar{P}_t} \times 1000"
+            fórmula="TBI_t = \\frac{I_t}{\\bar{P}_t} \\times 1000"
             description="N&uacute;mero de inmigrantes por cada 1.000 habitantes. Si bien se le suele llamar tasa, en realidad no lo es estrictamente, ya que los individuos del denominador no est&aacute;n expuestos al riesgo de inmigrar (ya pertenecen a la poblaci&oacute;n). Tambi&eacute;n se denomina &iacute;ndice de atracci&oacute;n."
             variables={[
               { symbol: "I_t", meaning: "N\u00famero total de inmigrantes en el a\u00f1o t" },
@@ -368,7 +368,7 @@ export default function MigracionesPage() {
         <FormulaCard
           name="Tasa Bruta de Emigraci&oacute;n"
           abbreviation="TBE"
-          fórmula="TBE_t = \frac{E_t}{\bar{P}_t} \times 1000"
+          fórmula="TBE_t = \\frac{E_t}{\\bar{P}_t} \\times 1000"
           description="N&uacute;mero de emigrantes por cada 1.000 habitantes. En este caso s&iacute; se trata de una verdadera tasa, ya que los individuos del denominador est&aacute;n sometidos al riesgo de emigrar."
           variables={[
             { symbol: "E_t", meaning: "N\u00famero total de emigrantes en el a\u00f1o t" },
@@ -380,7 +380,7 @@ export default function MigracionesPage() {
         <FormulaCard
           name="Tasa de Migraci&oacute;n Bruta"
           abbreviation="TMB"
-          fórmula="TMB_t = \frac{I_t + E_t}{\bar{P}_t} \times 1000"
+          fórmula="TMB_t = \\frac{I_t + E_t}{\\bar{P}_t} \\times 1000"
           description="Flujo total de migrantes (inmigraci&oacute;n m&aacute;s emigraci&oacute;n) por cada 1.000 habitantes. Mide la intensidad global de la movilidad migratoria. Se puede obtener tambi&eacute;n como TMB = TBI + TBE."
           variables={[
             { symbol: "I_t + E_t", meaning: "Migraci\u00f3n bruta (total de entradas y salidas)" },
@@ -392,7 +392,7 @@ export default function MigracionesPage() {
         <FormulaCard
           name="Tasa Neta de Migraci&oacute;n (Tasa de Saldo Migratorio)"
           abbreviation="TNM"
-          fórmula="TNM_t = \frac{I_t - E_t}{\bar{P}_t} \times 1000"
+          fórmula="TNM_t = \\frac{I_t - E_t}{\\bar{P}_t} \\times 1000"
           description="Saldo migratorio por cada 1.000 habitantes. No es una verdadera tasa ya que el denominador contiene personas que no est&aacute;n expuestas al riesgo de inmigrar. Se puede obtener tambi&eacute;n como TNM = TBI - TBE."
           variables={[
             { symbol: "I_t - E_t", meaning: "Saldo migratorio del per\u00edodo" },
@@ -404,7 +404,7 @@ export default function MigracionesPage() {
         <FormulaCard
           name="Raz&oacute;n de intercambio"
           abbreviation="RI"
-          fórmula="RI_t = \frac{I_t}{E_t} \times 100"
+          fórmula="RI_t = \\frac{I_t}{E_t} \\times 100"
           description="Relaci&oacute;n entre inmigraciones y emigraciones, expresada en porcentaje. Valores superiores a 100 indican que las entradas superan a las salidas."
           variables={[
             { symbol: "I_t", meaning: "Inmigraciones en el per\u00edodo" },
@@ -421,11 +421,11 @@ export default function MigracionesPage() {
           </p>
           <div className="mt-3 space-y-2">
             <FormulaDisplay
-              math="TBI_{t,t+n} = \frac{I(t, t+n)}{n \times \bar{P}_{t,t+n}} \times 1000"
+              math="TBI_{t,t+n} = \\frac{I(t, t+n)}{n \\times \\bar{P}_{t,t+n}} \\times 1000"
               block
             />
             <FormulaDisplay
-              math="TBE_{t,t+n} = \frac{E(t, t+n)}{n \times \bar{P}_{t,t+n}} \times 1000"
+              math="TBE_{t,t+n} = \\frac{E(t, t+n)}{n \\times \\bar{P}_{t,t+n}} \\times 1000"
               block
             />
           </div>
@@ -454,7 +454,7 @@ export default function MigracionesPage() {
         <FormulaCard
           name="Tasa Espec&iacute;fica de Migraci&oacute;n por Edad"
           abbreviation="TEM_x"
-          fórmula="m_x = \frac{M_{x, x+n}}{P_x} \times 1000"
+          fórmula="m_x = \\frac{M_{x, x+n}}{P_x} \\times 1000"
           description="Para cada edad x, se obtiene dividiendo las migraciones observadas entre la edad x y x+n entre la poblaci&oacute;n de esa edad al comienzo del per&iacute;odo. Se calcula usando el mismo principio que las tasas de fecundidad espec&iacute;ficas."
           variables={[
             { symbol: "M_{x, x+n}", meaning: "Migraciones de personas de edad entre x y x+n" },
@@ -482,7 +482,7 @@ export default function MigracionesPage() {
           <FormulaCard
             name="&Iacute;ndice Sint&eacute;tico de Migraci&oacute;n (Movilidad)"
             abbreviation="ISM"
-            fórmula="ISM_t = \frac{1}{1000} \sum_{x=0}^{w} m_x"
+            fórmula="ISM_t = \\frac{1}{1000} \\sum_{x=0}^{w} m_x"
             description="Representa el n&uacute;mero de migraciones que har&iacute;a una persona hipot&eacute;tica a lo largo de su vida si adoptara en cada momento las condiciones de migrabilidad observadas en el a&ntilde;o de referencia. Se calcula como la suma de las tasas espec&iacute;ficas por edad, dividida entre 1000. Siendo m_x la tasa espec&iacute;fica por edad y w la edad m&aacute;xima."
             variables={[
               { symbol: "m_x", meaning: "Tasa espec\u00edfica de migraci\u00f3n a la edad x" },
@@ -503,7 +503,7 @@ export default function MigracionesPage() {
             Cuando las tasas est&aacute;n referidas a grupos quinquenales:
           </p>
           <FormulaDisplay
-            math="ISM_t = \frac{1}{1000} \sum m_x \times 5"
+            math="ISM_t = \\frac{1}{1000} \\sum m_x \\times 5"
             block
           />
         </ConceptCard>
@@ -541,7 +541,7 @@ export default function MigracionesPage() {
         </p>
 
         <FormulaDisplay
-          math="\begin{pmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} & a_{n2} & \cdots & a_{nn} \end{pmatrix}"
+          math="\\begin{pmatrix} a_{11} & a_{12} & \\cdots & a_{1n} \\ a_{21} & a_{22} & \\cdots & a_{2n} \\ \\vdots & \\vdots & \\ddots & \\vdots \\ a_{n1} & a_{n2} & \\cdots & a_{nn} \\end{pmatrix}"
           block
         />
 
@@ -550,7 +550,7 @@ export default function MigracionesPage() {
             Si tomamos <FormulaDisplay math="P_i" /> como la poblaci&oacute;n a principio de a&ntilde;o en la
             regi&oacute;n i, podemos calcular:
           </p>
-          <FormulaDisplay math="p_{ij} = \frac{a_{ij}}{P_i}" block />
+          <FormulaDisplay math="p_{ij} = \\frac{a_{ij}}{P_i}" block />
           <p className="mt-2 text-sm text-muted-foreground">
             Donde <FormulaDisplay math="p_{ij}" /> es la probabilidad de que un individuo que est&aacute;
             en la regi&oacute;n i a inicio de a&ntilde;o se traslade a la regi&oacute;n j. Es una{" "}
@@ -654,9 +654,9 @@ export default function MigracionesPage() {
               <strong>retrospectiva</strong>:
             </p>
             <div className="mt-2 space-y-1">
-              <FormulaDisplay math="N_1(x) = P(x+n, t+n) - S \cdot P(x, t)" block />
+              <FormulaDisplay math="N_1(x) = P(x+n, t+n) - S \\cdot P(x, t)" block />
               <FormulaDisplay
-                math="N_2(x) = \frac{P(x+n, t+n)}{S} - P(x, t)"
+                math="N_2(x) = \\frac{P(x+n, t+n)}{S} - P(x, t)"
                 block
               />
             </div>

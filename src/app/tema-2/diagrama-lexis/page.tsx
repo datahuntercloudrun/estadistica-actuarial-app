@@ -46,11 +46,11 @@ const lifelinesConfig: LexisConfig = {
   showGrid: true,
   showLifelines: true,
   lifelines: [
-    { cohort: 2020.2, color: "#e11d48", startAge: 0, endAge: 5 },
-    { cohort: 2021.0, color: "#e11d48", startAge: 0, endAge: 5 },
-    { cohort: 2021.7, color: "#e11d48", startAge: 0, endAge: 4.3 },
-    { cohort: 2022.5, color: "#e11d48", startAge: 0, endAge: 3.5 },
-    { cohort: 2023.3, color: "#e11d48", startAge: 0, endAge: 2.7 },
+    { cohort: 2020, color: "#e11d48", startAge: 0, endAge: 5 },
+    { cohort: 2021, color: "#e11d48", startAge: 0, endAge: 5 },
+    { cohort: 2022, color: "#e11d48", startAge: 0, endAge: 4 },
+    { cohort: 2023, color: "#e11d48", startAge: 0, endAge: 3 },
+    { cohort: 2024, color: "#e11d48", startAge: 0, endAge: 2 },
   ],
 };
 
@@ -64,18 +64,18 @@ const stocksConfig: LexisConfig = {
   showGrid: true,
   showLifelines: true,
   lifelines: [
-    { cohort: 2020.2, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2021.0, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2021.7, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 4.3 },
-    { cohort: 2022.5, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3.5 },
+    { cohort: 2020, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2021, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2022, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 4 },
+    { cohort: 2023, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3 },
   ],
   stockLines: [
-    // Linea horizontal: edad exacta 1 en 20x2
+    // Linea horizontal: edad exacta 1 en 2022
     {
       type: "horizontal",
-      year: 2021,
+      year: 2022,
       age: 1,
-      endYear: 2022,
+      endYear: 2023,
       color: "#e11d48",
       label: "Cumplen 1 a\u00f1o en 2022",
       thickness: 3,
@@ -113,10 +113,10 @@ const edadPeriodoConfig: LexisConfig = {
   showGrid: true,
   showLifelines: true,
   lifelines: [
-    { cohort: 2020.3, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2021.5, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 4.5 },
-    { cohort: 2022.2, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3.8 },
-    { cohort: 2023.0, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3 },
+    { cohort: 2020, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2021, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2022, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 4 },
+    { cohort: 2023, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3 },
   ],
   surfaces: [
     {
@@ -140,10 +140,10 @@ const períodoCohorteConfig: LexisConfig = {
   showGrid: true,
   showLifelines: true,
   lifelines: [
-    { cohort: 2020.3, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2021.0, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2022.2, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3.8 },
-    { cohort: 2023.0, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3 },
+    { cohort: 2020, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2021, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2022, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 4 },
+    { cohort: 2023, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3 },
   ],
   surfaces: [
     {
@@ -168,10 +168,10 @@ const cohorteEdadConfig: LexisConfig = {
   showGrid: true,
   showLifelines: true,
   lifelines: [
-    { cohort: 2020.3, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2021.0, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2022.2, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3.8 },
-    { cohort: 2023.0, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3 },
+    { cohort: 2020, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2021, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2022, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 4 },
+    { cohort: 2023, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3 },
   ],
   surfaces: [
     {
@@ -196,16 +196,16 @@ const triangulosConfig: LexisConfig = {
   showGrid: true,
   showLifelines: true,
   lifelines: [
-    { cohort: 2020.3, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2021.0, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
-    { cohort: 2022.2, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 3.8 },
+    { cohort: 2020, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2021, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 5 },
+    { cohort: 2022, color: "#d4d4d8", dashed: true, startAge: 0, endAge: 4 },
   ],
   surfaces: [
     {
       type: "triangulo-sup",
       year: 2023,
       age: 1,
-      cohort: 2022,
+      cohort: 2021,
       color: "#3b82f6",
       label: "Triangulo superior",
       opacity: 0.55,
@@ -214,7 +214,7 @@ const triangulosConfig: LexisConfig = {
       type: "triangulo-inf",
       year: 2023,
       age: 1,
-      cohort: 2021,
+      cohort: 2022,
       color: "#22c55e",
       label: "Triangulo inferior",
       opacity: 0.55,
@@ -734,9 +734,9 @@ export default function Tema2DiagramaLexisPage() {
                   <strong>Piensa en ello as&iacute;:</strong> cuando la ventana del
                   cuadrado (Edad-Per&iacute;odo) la divides en dos mitades con una
                   diagonal, cada mitad te dice algo distinto. La mitad superior
-                  corresponde a la generaci&oacute;n m&aacute;s joven (nacidos ese mismo
-                  a&ntilde;o) y la inferior a la generaci&oacute;n m&aacute;s mayor
-                  (nacidos el a&ntilde;o anterior). As&iacute; puedes ser a&uacute;n
+                  corresponde a la generaci&oacute;n m&aacute;s antigua (nacidos el
+                  a&ntilde;o anterior) y la inferior a la generaci&oacute;n m&aacute;s
+                  joven (nacidos ese mismo a&ntilde;o). As&iacute; puedes ser a&uacute;n
                   m&aacute;s preciso en tu conteo.
                 </p>
               </CardContent>
@@ -746,18 +746,19 @@ export default function Tema2DiagramaLexisPage() {
               <div>
                 <p>
                   <span className="inline-block w-3 h-3 bg-blue-500 rounded-sm mr-1 opacity-60" />
-                  <strong>Tri&aacute;ngulo superior:</strong> nacidos en la generaci&oacute;n
-                  del mismo a&ntilde;o del per&iacute;odo, con la edad cumplida en ese
-                  a&ntilde;o. Ej: nacidos en 2022 fallecidos con 1 a&ntilde;o cumplido en
-                  2023.
+                  <strong>Tri&aacute;ngulo superior:</strong> generaci&oacute;n m&aacute;s
+                  antigua (c = a&ntilde;o &minus; edad &minus; 1), que ya hab&iacute;an
+                  cumplido a&ntilde;os antes del inicio del per&iacute;odo. Ej: nacidos en
+                  2021 fallecidos con 1 a&ntilde;o cumplido en 2023.
                 </p>
               </div>
               <div>
                 <p>
                   <span className="inline-block w-3 h-3 bg-green-500 rounded-sm mr-1 opacity-60" />
-                  <strong>Tri&aacute;ngulo inferior:</strong> nacidos en la generaci&oacute;n
-                  del a&ntilde;o anterior al per&iacute;odo, con la edad cumplida en ese
-                  a&ntilde;o. Ej: nacidos en 2021 fallecidos con 1 a&ntilde;o en 2023.
+                  <strong>Tri&aacute;ngulo inferior:</strong> generaci&oacute;n m&aacute;s
+                  reciente (c = a&ntilde;o &minus; edad), que cumplen a&ntilde;os durante
+                  el per&iacute;odo. Ej: nacidos en 2022 fallecidos con 1 a&ntilde;o
+                  cumplido en 2023.
                 </p>
               </div>
             </div>

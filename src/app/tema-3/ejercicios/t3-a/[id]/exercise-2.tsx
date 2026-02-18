@@ -257,7 +257,7 @@ export function Exercise2() {
             Utilizamos la población media proporcionada directamente.
           </p>
           <FormulaDisplay
-            math="TBN = \frac{N}{\bar{P}} \times 1000"
+            math="TBN = \\frac{N}{\\bar{P}} \\times 1000"
             block
           />
           <FormulaDisplay
@@ -283,7 +283,7 @@ export function Exercise2() {
             La población media se calcula a partir de los stocks a 1 de enero.
           </p>
           <FormulaDisplay
-            math="TGF = \frac{N}{\bar{P}^f_{15\text{-}49}} \times 1000"
+            math="TGF = \\frac{N}{\\bar{P}^f_{15\\text{-}49}} \\times 1000"
             block
           />
 
@@ -316,7 +316,7 @@ export function Exercise2() {
             sobre el total de nacimientos.
           </p>
           <FormulaDisplay
-            math="GR = \frac{N^{\text{mujeres}}}{N^{\text{total}}}"
+            math="GR = \\frac{N^{\\text{mujeres}}}{N^{\\text{total}}}"
             block
           />
           <FormulaDisplay
@@ -353,7 +353,7 @@ export function Exercise2() {
 
           <p className="font-semibold text-sm">Paso 2: Calcular el ISF</p>
           <FormulaDisplay
-            math="ISF = \frac{TGF}{1000} \times 35"
+            math="ISF = \\frac{TGF}{1000} \\times 35"
             block
           />
           <FormulaDisplay
@@ -393,7 +393,7 @@ export function Exercise2() {
 
           <p className="font-semibold text-sm">Paso 3: TBR</p>
           <FormulaDisplay
-            math="TBR = ISF \times GR"
+            math="TBR = ISF \\times GR"
             block
           />
           <FormulaDisplay
@@ -420,7 +420,7 @@ export function Exercise2() {
             El numerador sigue siendo el total de nacimientos.
           </p>
           <FormulaDisplay
-            math="TEF^m = \frac{N}{\bar{P}^m_{15\text{-}49}} \times 1000"
+            math="TEF^m = \\frac{N}{\\bar{P}^m_{15\\text{-}49}} \\times 1000"
             block
           />
 
@@ -452,7 +452,7 @@ export function Exercise2() {
             y nacidas mujeres. Valores tipicos oscilan alrededor de 1,05.
           </p>
           <FormulaDisplay
-            math="IM = \frac{N^{\text{varones}}}{N^{\text{mujeres}}}"
+            math="IM = \\frac{N^{\\text{varones}}}{N^{\\text{mujeres}}}"
             block
           />
           <FormulaDisplay
@@ -484,7 +484,7 @@ export function Exercise2() {
           <div className="space-y-3">
             <p className="font-semibold text-sm">TBI 2021:</p>
             <FormulaDisplay
-              math="TBI = \frac{I}{\bar{P}} \times 1000"
+              math="TBI = \\frac{I}{\\bar{P}} \\times 1000"
               block
             />
             <FormulaDisplay
@@ -501,7 +501,7 @@ export function Exercise2() {
           <div className="space-y-3">
             <p className="font-semibold text-sm">TBE 2021:</p>
             <FormulaDisplay
-              math="TBE = \frac{E}{\bar{P}} \times 1000"
+              math="TBE = \\frac{E}{\\bar{P}} \\times 1000"
               block
             />
             <FormulaDisplay
@@ -528,7 +528,7 @@ export function Exercise2() {
             inmigraciones del período entre la población media del período completo.
           </p>
           <FormulaDisplay
-            math="TBI_{\text{acum}} = \frac{I_{2021} + I_{2022}}{\bar{P}_{\text{período}}} \times 1000"
+            math="TBI_{\\text{acum}} = \\frac{I_{2021} + I_{2022}}{\\bar{P}_{\\text{período}}} \\times 1000"
             block
           />
 
@@ -592,7 +592,7 @@ export function Exercise2() {
             La tasa neta de migración resume el efecto neto de las migraciones sobre la población.
           </p>
           <FormulaDisplay
-            math="TNM = \frac{SM}{\bar{P}} \times 1000"
+            math="TNM = \\frac{SM}{\\bar{P}} \\times 1000"
             block
           />
 
@@ -625,7 +625,7 @@ export function Exercise2() {
             Un valor mayor que 1 indica que entran más personas de las que salen.
           </p>
           <FormulaDisplay
-            math="RI = \frac{I}{E}"
+            math="RI = \\frac{I}{E}"
             block
           />
           <FormulaDisplay
@@ -669,7 +669,7 @@ export function Exercise2() {
               de población se descompone en saldo vegetativo (SV) y saldo migratorio (SM):
             </p>
             <FormulaDisplay
-              math="\Delta P = SV + SM \implies SV = \Delta P - SM"
+              math="\\Delta P = SV + SM \\implies SV = \\Delta P - SM"
               block
             />
           </div>

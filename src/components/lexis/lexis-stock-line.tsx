@@ -6,6 +6,7 @@ import type { LexisStockLine } from "@/types/lexis";
 interface LexisStockLineProps {
   stockLines: LexisStockLine[];
   startYear: number;
+  endYear: number;
   minAge: number;
   maxAge: number;
   cellSize?: number;
@@ -17,6 +18,7 @@ const PADDING_TOP = 10;
 export function LexisStockLineLayer({
   stockLines,
   startYear,
+  endYear,
   minAge: _minAge,
   maxAge,
   cellSize = 60,
@@ -69,6 +71,12 @@ export function LexisStockLineLayer({
         const midX = (x1 + x2) / 2;
         const midY = (y1 + y2) / 2;
 
+        // Place label on the left if the line is in the right 30% of the diagram
+        const svgRight = toSvgX(endYear);
+        const nearRightEdge = midX > svgRight - (endYear - startYear) * cellSize * 0.3;
+        const labelX = nearRightEdge ? midX - 6 : midX + 6;
+        const textAnchor = nearRightEdge ? "end" : "start";
+
         return (
           <g key={`sl-${idx}`}>
             <line
@@ -82,11 +90,12 @@ export function LexisStockLineLayer({
             />
             {sl.label && (
               <text
-                x={midX + 4}
+                x={labelX}
                 y={midY - 4}
                 fontSize={10}
                 fill={sl.color}
                 fontWeight="bold"
+                textAnchor={textAnchor}
               >
                 {sl.label}
               </text>

@@ -52,53 +52,59 @@ export function LexisSurfaceLayer({
       }
 
       case "período-cohorte": {
-        // Parallelogram for cohort c in period y
-        // Uses cohort if provided, otherwise derives: cohort = year - age
+        // Parallelogram: intersection of a period band and a cohort band
+        // Bounded by vertical lines (period) and diagonal lines (cohort)
         const c = cohort ?? year - age;
-        // The vertices in demographic coords:
-        // (y, y-c), (y+1, y-c), (y+1, y+1-c), (y, y+1-c)
-        // where first element is year and second is age
-        const a1 = year - c;       // age at start of period for this cohort
-        const a2 = year + 1 - c;   // age at end of period for this cohort
+        const a = year - c; // age of oldest in cohort at start of period
+        // Vertices (demographic coords):
+        //   (year, a-1)   youngest at start of period
+        //   (year, a)     oldest at start of period
+        //   (year+1, a+1) oldest at end of period
+        //   (year+1, a)   youngest at end of period
         return [
-          [toSvgX(year), toSvgY(a1)],
-          [toSvgX(year + 1), toSvgY(a1)],
-          [toSvgX(year + 1), toSvgY(a2)],
-          [toSvgX(year), toSvgY(a2)],
+          [toSvgX(year), toSvgY(a - 1)],
+          [toSvgX(year), toSvgY(a)],
+          [toSvgX(year + 1), toSvgY(a + 1)],
+          [toSvgX(year + 1), toSvgY(a)],
         ];
       }
 
       case "cohorte-edad": {
-        // Parallelogram: cohort c at age a
-        // Vertices: (c+a, a), (c+a+1, a), (c+a+1, a+1), (c+a, a+1)
+        // Parallelogram: intersection of a cohort band and an age band
+        // Bounded by horizontal lines (age) and diagonal lines (cohort)
         const c = cohort ?? year - age;
+        // Vertices (demographic coords):
+        //   (c+age, age)     oldest reaches age
+        //   (c+age+1, age)   youngest reaches age
+        //   (c+age+2, age+1) youngest reaches age+1
+        //   (c+age+1, age+1) oldest reaches age+1
         return [
           [toSvgX(c + age), toSvgY(age)],
           [toSvgX(c + age + 1), toSvgY(age)],
+          [toSvgX(c + age + 2), toSvgY(age + 1)],
           [toSvgX(c + age + 1), toSvgY(age + 1)],
-          [toSvgX(c + age), toSvgY(age + 1)],
         ];
       }
 
       case "triangulo-sup": {
-        // Upper triangle within the age-period square at (year, age)
-        // Top-left, top-right, bottom-right of the square
-        // In demographic terms: (year, age+1), (year+1, age+1), (year+1, age)
+        // Upper triangle: ABOVE the Lexis diagonal (BL→TR)
+        // Contains events for the older cohort (c = year - age - 1)
+        // Vertices: BL, TL, TR
         return [
+          [toSvgX(year), toSvgY(age)],
           [toSvgX(year), toSvgY(age + 1)],
           [toSvgX(year + 1), toSvgY(age + 1)],
-          [toSvgX(year + 1), toSvgY(age)],
         ];
       }
 
       case "triangulo-inf": {
-        // Lower triangle within the age-period square at (year, age)
-        // Top-left, bottom-left, bottom-right of the square
-        // In demographic terms: (year, age+1), (year, age), (year+1, age)
+        // Lower triangle: BELOW the Lexis diagonal (BL→TR)
+        // Contains events for the younger cohort (c = year - age)
+        // Vertices: BL, BR, TR
         return [
-          [toSvgX(year), toSvgY(age + 1)],
           [toSvgX(year), toSvgY(age)],
           [toSvgX(year + 1), toSvgY(age)],
+          [toSvgX(year + 1), toSvgY(age + 1)],
         ];
       }
 

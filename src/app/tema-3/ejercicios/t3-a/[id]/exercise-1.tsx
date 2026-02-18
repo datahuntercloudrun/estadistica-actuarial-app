@@ -220,7 +220,7 @@ export function Exercise1() {
           <div className="space-y-3">
             <p className="font-semibold">Paso 1: Fórmula</p>
             <FormulaDisplay
-              math="TBN = \frac{N}{\bar{P}} \times 1000"
+              math="TBN = \\frac{N}{\\bar{P}} \\times 1000"
               block
             />
 
@@ -264,7 +264,7 @@ export function Exercise1() {
           <div className="space-y-3">
             <p className="font-semibold">Paso 1: Fórmula</p>
             <FormulaDisplay
-              math="TGF = \frac{N}{\bar{P}^f_{15\text{-}49}} \times 1000"
+              math="TGF = \\frac{N}{\\bar{P}^f_{15\\text{-}49}} \\times 1000"
               block
             />
 
@@ -306,13 +306,13 @@ export function Exercise1() {
           <div className="space-y-3">
             <p className="font-semibold">Fórmula</p>
             <FormulaDisplay
-              math="TEF_x = \frac{N_x}{\bar{P}^f_x} \times 1000"
+              math="TEF_x = \\frac{N_x}{\\bar{P}^f_x} \\times 1000"
               block
             />
 
             <p className="font-semibold">Cálculo de población media femenina por grupo de edad</p>
             <FormulaDisplay
-              math="\bar{P}^f_x = \frac{P^f_x(01/01/1999) + P^f_x(01/01/2000)}{2}"
+              math="\\bar{P}^f_x = \\frac{P^f_x(01/01/1999) + P^f_x(01/01/2000)}{2}"
               block
             />
           </div>
@@ -411,7 +411,7 @@ export function Exercise1() {
               del período fértil (35 años) y se divide entre 1.000.
             </p>
             <FormulaDisplay
-              math="ISF = \frac{TGF}{1000} \times 35"
+              math="ISF = \\frac{TGF}{1000} \\times 35"
               block
             />
             <FormulaDisplay
@@ -431,7 +431,7 @@ export function Exercise1() {
               del grupo (5 años, por ser grupos quinquenales) dividido entre 1.000.
             </p>
             <FormulaDisplay
-              math="ISF = \frac{a}{1000} \times \sum TEF_x"
+              math="ISF = \\frac{a}{1000} \\times \\sum TEF_x"
               block
             />
             <p className="text-sm">
@@ -489,7 +489,7 @@ export function Exercise1() {
           <div className="rounded-lg border p-4 space-y-3">
             <h4 className="font-semibold">Método 1: A partir del ISF y Gender Ratio</h4>
             <FormulaDisplay
-              math="TBR = ISF \times GR"
+              math="TBR = ISF \\times GR"
               block
             />
             <FormulaDisplay
@@ -509,7 +509,7 @@ export function Exercise1() {
               fórmula que para el ISF.
             </p>
             <FormulaDisplay
-              math="TBR = \frac{a}{1000} \times \sum TEF^f_x"
+              math="TBR = \\frac{a}{1000} \\times \\sum TEF^f_x"
               block
             />
             <FormulaDisplay

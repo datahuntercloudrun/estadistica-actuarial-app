@@ -101,6 +101,7 @@ export function LexisDiagram({
         <LexisStockLineLayer
           stockLines={stockLines}
           startYear={startYear}
+          endYear={endYear}
           minAge={minAge}
           maxAge={maxAge}
           cellSize={cellSize}

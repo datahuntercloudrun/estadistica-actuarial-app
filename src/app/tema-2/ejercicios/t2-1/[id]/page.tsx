@@ -210,13 +210,10 @@ function Ejercicio2() {
   };
 
   // c) Supervivientes de generación 1901 en su primer aniversario
-  //    → punto/linea en la diagonal de la generación 1901 al llegar a edad exacta 1
-  //    → stock: horizontal line at age=1, from year=1902 to year=1903 (intersection with cohort 1901)
-  //    Actually, it is a point on the diagonal. In Lexis, this is where the lifeline of
-  //    cohort 1901 crosses age=1, which is at year=1902. We represent it as a short diagonal
-  //    or a point. Best: a horizontal line segment at age=1 between year=1902 and year=1903
-  //    filtered by generation 1901 → this is actually just a POINT at (1902, 1).
-  //    We use a short horizontal stock line to indicate it.
+  //    l₁(gen 1901) = supervivientes a edad exacta 1
+  //    En Lexis: segmento horizontal a edad 1, desde año 1902 hasta 1903
+  //    (la generación 1901 nace a lo largo de todo 1901, así que alcanzan
+  //    edad exacta 1 a lo largo de todo 1902, desde 1/1/1902 hasta 31/12/1902)
   const configC: LexisConfig = {
     startYear: 1897,
     endYear: 1907,
@@ -224,13 +221,13 @@ function Ejercicio2() {
     maxAge: 6,
     cellSize: 55,
     lifelines: [
-      { cohort: 1901, color: "#3b82f6" },
+      { cohort: 1901, color: "#3b82f6", startAge: 0, endAge: 3 },
     ],
     stockLines: [
-      { type: "diagonal", year: 1902, age: 1, endYear: 1902, endAge: 1, color: "#ef4444", label: "l₁(1901)", thickness: 6 },
+      { type: "horizontal", year: 1902, age: 1, endYear: 1903, color: "#ef4444", label: "l₁(1901)", thickness: 3 },
     ],
     annotations: [
-      { x: 1902, y: 1.4, text: "l₁(gen.1901)", fontSize: 10, color: "#ef4444" },
+      { x: 1902.5, y: 1.3, text: "l₁(gen.1901)", fontSize: 11, color: "#ef4444" },
     ],
   };
 

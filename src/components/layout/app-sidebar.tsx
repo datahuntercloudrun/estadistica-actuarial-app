@@ -67,7 +67,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="border-b border-border/40">
+      <SidebarHeader className="border-b border-white/[0.08] dark:border-white/[0.06]">
         <Link
           href="/"
           onClick={handleNavClick}
@@ -171,7 +171,7 @@ export function AppSidebar() {
           );
         })}
       </SidebarContent>
-      <SidebarFooter className="border-t border-border/40 px-4 py-3">
+      <SidebarFooter className="border-t border-white/[0.08] dark:border-white/[0.06] px-4 py-3">
         <p className="text-[10px] text-muted-foreground/50 text-center">
           Demografía y Estadística Actuarial
         </p>

@@ -335,8 +335,10 @@ function Ejercicio2() {
               como un <strong>segmento vertical</strong> en el año 1901, entre las edades 1 y 2.
             </p>
             <p className="text-sm text-muted-foreground">
-              Incluye a nacidos en 1899 (que aun no han cumplido 2) y nacidos en 1900
-              (que ya han cumplido 1 pero aun no 2).
+              Incluye a los nacidos en 1899 que aún no han cumplido 2 años.
+              La generación de 1900 no se incluye porque a 1/01/1901 tienen 0 años
+              cumplidos (nacieron durante 1900, así que aún no han cumplido su
+              primer aniversario).
             </p>
             <div className="max-w-xl mx-auto">
               <LexisDiagram config={configA} />
@@ -346,13 +348,14 @@ function Ejercicio2() {
           {/* b) */}
           <div className="space-y-3">
             <h4 className="font-semibold text-green-700">
-              b) Nacimientos de 1901 (efectivos iniciales) → Segmento en eje horizontal (Flujo/Stock)
+              b) Nacimientos de 1901 (efectivos iniciales) → Segmento en eje horizontal (Flujo)
             </h4>
             <p className="text-sm">
               Los <strong>efectivos iniciales</strong> de la generación 1901 son los{" "}
-              <strong>nacimientos ocurridos a lo largo del año 1901</strong>. Se representan
-              como un segmento horizontal sobre el eje de edad 0, desde el 1/01/1901 hasta
-              el 31/12/1901.
+              <strong>nacimientos ocurridos a lo largo del año 1901</strong>. Los nacimientos
+              son un <strong>flujo</strong> (acontecimientos que se acumulan durante un periodo,
+              no en un instante). Se representan como un segmento horizontal sobre el eje de
+              edad 0, desde el 1/01/1901 hasta el 31/12/1901.
             </p>
             <div className="max-w-xl mx-auto">
               <LexisDiagram config={configB} />
@@ -403,8 +406,9 @@ function Ejercicio2() {
             <p className="text-sm">
               Se fija el <strong>período</strong> (1902) y la <strong>cohorte</strong>{" "}
               (generación 1897). Es una observación de tipo{" "}
-              <strong>período-cohorte</strong>. La generación 1897 tiene 4-5 años en 1902,
-              así que el paralelogramo abarca edades 5-6 durante el año 1902.
+              <strong>período-cohorte</strong>. La generación 1897 tiene edades cumplidas
+              4 y 5 durante 1902 (cumplen 5 años a lo largo de ese año), así que el
+              paralelogramo abarca desde edad 4 hasta edad 6.
             </p>
             <div className="max-w-xl mx-auto">
               <LexisDiagram config={configE} />
@@ -420,7 +424,9 @@ function Ejercicio2() {
               Se fija la <strong>cohorte</strong> (generación 1901) y la{" "}
               <strong>edad cumplida</strong> (3 años). Es una observación de tipo{" "}
               <strong>cohorte-edad</strong>. El paralelogramo se sitúa entre los años 1904 y
-              1905 (cuando la generación de 1901 tiene 3 años cumplidos), entre las edades 3 y 4.
+              1906 (cuando la generación de 1901 tiene 3 años cumplidos), entre las edades 3 y 4.
+              Abarca dos años de calendario porque los nacidos a principio de 1901 cumplen 3 en
+              1904 y los nacidos a final de 1901 cumplen 4 a finales de 1905.
             </p>
             <div className="max-w-xl mx-auto">
               <LexisDiagram config={configF} />

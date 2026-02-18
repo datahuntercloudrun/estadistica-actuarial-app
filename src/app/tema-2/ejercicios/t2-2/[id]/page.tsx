@@ -378,7 +378,7 @@ function Ejercicio1() {
       label: "j",
       title: "Defunciones de generación 1984 durante 1988",
       type: "Flujo - Superficie período-cohorte",
-      explanation: "Se fija el período (1988) y la cohorte (1984). La generación 1984 tiene 3-4 años cumplidos durante 1988. El paralelogramo período-cohorte abarca las edades 4-5 durante el año 1988.",
+      explanation: "Se fija el período (1988) y la cohorte (1984). La generación 1984 tiene 3-4 años cumplidos durante 1988 (cumplen 4 a lo largo del año). El paralelogramo período-cohorte abarca las edades cumplidas 3 y 4 (edades exactas 3 a 5 en el diagrama).",
       config: configJ,
       legend: [
         { color: "#3b82f6", label: "Generación 1984", type: "lifeline" as const },
@@ -692,7 +692,7 @@ function Ejercicio3() {
     ],
     surfaces: [
       // 3.3 Varones fallecidos con 75 cumplidos nacidos en 1926 → cohorte-edad
-      { type: "cohorte-edad", year: 2001, age: 75, cohort: 1926, color: "#3b82f6", label: "V=3183", opacity: 0.4 },
+      { type: "cohorte-edad", year: 2001, age: 75, cohort: 1926, color: "#3b82f6", label: "V=6307", opacity: 0.4 },
     ],
   };
 
@@ -933,783 +933,24 @@ function Ejercicio3() {
 }
 
 /* ────────────────────────────────────────────
-   Ejercicio 4 - Emigración y cálculos numericos
+   Ejercicio 4 - Emigración y cálculos numéricos
    ──────────────────────────────────────────── */
 function Ejercicio4() {
-  /* From the PDF diagram:
-     Generation born around 1976 (since at 1.1.2001 they are 25).
-     Ages 25-29, Years 2001-2005.
-
-     The lifeline shows stocks at each 1.1.:
-     At the "points" on the lifeline we can read stocks and emigration flows.
-
-     From the image (reading the handwritten numbers on the diagram):
-     Stock values at "kink" points on the lifeline:
-     - 1.1.2001: age 25 cumplidos → stock not given directly
-     Looking at the image more carefully:
-
-     The numbers visible are:
-     - 500 (near bottom left, around 1.1.2001, age ~25)
-     - 600 (near 1.1.2002, age ~26)
-     - 750 (near 1.1.2003, age ~27)
-     - 900 (near 1.1.2004, age ~28)
-     - 1000 (upper area, near age 27-28)
-     - 1200 (near 1.1.2004, age ~28)
-     - 800 (near top right)
-
-     Looking at it more carefully with the dashed lines for emigration:
-     I think the reading is:
-     - The numbers along the diagonal (stocks at 1.1.):
-       500 at around 1.1.2002 (age 26 border)
-       750 at around mid-year
-       600 at 1.1.2003
-       900 at mid-year
-       1000 at 1.1.2004
-       1200 at upper position
-       800 at 1.1.2005
-
-     Actually, let me re-read the image more systematically. The generation lifeline goes
-     from bottom-left to top-right. The dashed lines coming off the lifeline represent
-     emigration. The numbers appear to be:
-
-     Reading from the image as best I can:
-     Lower-left: 500 (appears to be near the first stock point)
-     Then: 600
-     Then: 750
-     Then: 900
-     Then: 1000
-     Then: 1200
-     Top-right: 800
-
-     Given the context (emigration data and stocks), I believe the interpretation is:
-
-     The numbers in the diagram represent:
-     - Stocks at 1 de enero of each year (on the vertical crossings)
-     - Emigration flows in each triangle
-
-     Let me assign:
-     - Stock at 1.1.2001, 25 cumplidos = not visible (off diagram?)
-
-     Looking again at the exercise text and diagram description:
-     "datos que aparecen en el diagrama de Lexis corresponden a las salidas por emigración
-     y a los stocks"
-
-     I'll interpret the numbers as:
-     Stocks (at the diagonal kinks where lifeline crosses integer ages):
-     - Age 25 exact (during 2001): stocks somewhere
-     - The large numbers seem to be stocks
-
-     From the image description, reading carefully:
-     The stocks appear to be the larger numbers:
-     - Near age 25/1.1.2001: probably the initial stock
-     - 500 near the bottom-left
-     - 750 near the middle
-     - 1000 near upper area
-     - 1200 near the right
-     - 900, 800 are emigration flows
-     - 600 is also a flow
-
-     Let me try this reading based on typical problem structure:
-
-     At each point along the lifeline we see a stock (number of people remaining).
-     Between points, the dashed lines show emigration outflows.
-
-     Most likely interpretation:
-     Stocks at 1 de enero:
-     - 1.1.2001 (25 cumplidos): this could be off the visible part
-
-     Actually, reading numbers from bottom to top along the lifeline:
-     500, 600, 750, 900, 1000, 1200, 800
-
-     I think:
-     - 500: emigration lower triangle age 25 in 2001
-     - 600: emigration upper triangle age 25 in 2001 (or stock)
-     - 750: stock at some crossing
-     - etc.
-
-     Let me try a different, cleaner interpretation based on the image layout:
-
-     The image shows ages 25-29 on Y axis, years 2001-2005 on X axis.
-     The lifeline goes from (2001, 25) to (2005, 29).
-
-     Numbers visible (my best reading):
-     500 - at bottom left (near 1.1.2001, age 25)
-     600 - slightly up (near age 26, year 2002 area)
-     750 - middle (near 1.1.2003, age 27 area)
-     900 - above (near age 28 area)
-     1000 - near 1.1.2004 area
-     1200 - near 1.1.2004, age 28
-     800 - near top right (1.1.2005, age 28-29)
-
-     OK, I think the most reasonable interpretation (looking at the image structure) is:
-
-     The diagram shows a SINGLE generation (born ~1976).
-
-     Emigration flows (in dashed-bordered triangles):
-     - Lower tri (2001, age 25): some number
-     - Upper tri: some number
-     etc.
-
-     But since I can't be 100% certain about the exact placement of each number,
-     let me go with what makes a consistent problem:
-
-     Stocks at crossing points of lifeline with 1.1. vertical lines:
-     - 1.1.2001 at 25 cumplidos: NOT GIVEN (outside diagram? or given implicitly)
-
-     Let me try this interpretation which gives a clean problem:
-
-     Looking at the image one more time:
-     The numbers appear at these locations:
-     - 500: on the lifeline near 1.1.2002, between ages 25-26 → this is probably a stock
-     - 600: in a triangle near age 26
-     - 750: on the lifeline near the crossing at age 27 → stock
-     - 900: in a triangle
-     - 1000: near 1.1.2004
-     - 1200: on the lifeline near age 28 → stock
-     - 800: near the end
-
-     A consistent reading:
-     Stock at 1.1.2001 (25 cumplidos) = some large number, say 5000 (not shown)
-
-     Actually the numbers in the image seem too small for stocks and too large for emigration.
-     Let me just go with what I can see in the image and construct a consistent problem.
-
-     From the image I'll use:
-     - The numbers near the lifeline crossings as EMIGRATION flows in the triangles
-     - Numbered from bottom-left to top-right
-
-     Given the generation and the ages shown (25-29), and reading:
-     Lower triangles emigration: 500, 600, 900, 800
-     Upper triangles emigration: [not all visible]
-
-     Or perhaps the numbers at the left/bottom represent one thing and right/top another.
-
-     Let me go with a reasonable, internally consistent interpretation:
-
-     I'll set up the problem as follows (matching the visual layout):
-
-     Generation born in 1976 (so at 1.1.2001 they have 24 turning 25, i.e., 24 cumplidos...
-     no, at 1.1.2001: 2001-1976=25 if birthday already passed, or 24 if not.
-     On the Lexis diagram they'd be between ages 24 and 25 at 1.1.2001.
-     But diagram starts at age 25, so maybe generation = 1977?
-     At 1.1.2001: 2001-1977=24, still 24. Hmm.
-
-     The diagram shows ages starting at 25 and the lifeline enters at the bottom left.
-     If the generation is 1976, the lifeline crosses age 25 sometime during 2001.
-     At 1.1.2001: generation 1976 has 24 cumplidos (turning 25 in 2001).
-     At 1.1.2002: generation 1976 has 25 cumplidos.
-
-     So the lifeline of gen 1976 enters the visible area (age ≥25) during 2001.
-
-     Let me use this clean interpretation matching the image:
-
-     Emigration (dashed arrows leaving the lifeline):
-     Lower triangle (2001, 25): 500 emigrate
-     Upper triangle (2002, 25): none visible
-     Lower triangle (2002, 26): 600 emigrate
-     Upper triangle (2003, 26): none
-     Lower triangle (2003, 27): 750 emigrate
-     Upper triangle (2004, 27): 900 emigrate
-
-     Stocks at kink points (where lifeline crosses integer ages or 1.1. dates):
-     1200 people at some point
-     1000 at another
-     800 at another
-
-     Actually, this is getting too speculative. Let me take a definitive reading:
-
-     The image shows numbers placed clearly:
-     500 = near lower left, at the diagonal crossing near 1.1.2001/age 25
-     600 = next up
-     750 = middle area
-     900 = further up
-     1000 = near 1.1.2004
-     1200 = near age 28
-     800 = at top right, 1.1.2005/age 29
-
-     I'll interpret as STOCKS at the points where the lifeline crosses 1.1. dates:
-     Stock at point where lifeline crosses 1.1.2002 (25 cumplidos for gen 1976): some value
-
-     Actually, a simpler and common textbook interpretation: the numbers ARE the emigration
-     flows in each triangle, and we need to calculate the stocks.
-
-     But wait, the problem says "corresponden a las salidas por emigración y a los stocks".
-     So BOTH types of numbers are in the diagram.
-
-     OK, based on careful image analysis and typical problem structure, I'll go with:
-
-     Emigration flows (in dashed triangles along the lifeline):
-     In lower tri (year=c+x, age=x): emigrations happening before birthday
-     In upper tri (year=c+x+1, age=x): emigrations happening after birthday
-
-     Given that the lifeline seems to have numbers both ON it (stocks) and NEXT to the
-     dashed outflow arrows (emigration), I'll use:
-
-     Stocks (larger numbers, on the lifeline at 1.1. crossings):
-     - 1.1.2002, age 25 cumplidos (from gen 1976): probably not 25 cumplidos...
-
-     OK I need to just commit to a reading. Based on the visual:
-
-     I'll assume generation 1976:
-
-     Stocks at 1.1.YYYY, x cumplidos:
-     P₂₅(1.1.2002) = 1200 (or some number)
-
-     But this seems backwards. Let me try the other way:
-
-     The LOWER numbers are emigration and the HIGHER are stocks, or vice versa.
-
-     I'm going to go with the following definitive interpretation, which is most consistent
-     with the visual and produces a solvable problem:
-
-     Generation 1976.
-     Emigration flows in each triangle along the lifeline:
-     - Tri.inf (2001, 25): 500
-     - Tri.sup (2002, 25): 600 (wait, this would be cohort 1976, age 25, year 2002: c+x+1=1976+25+1=2002 ✓)
-
-     Hmm actually if these are emigrations going outward (leaving the population),
-     then to calculate stocks we'd need an initial population.
-
-     Actually re-reading the image: the numbers are placed at specific positions.
-     Looking at it as a grid:
-     - 500 is at the START of the lifeline crossing (near 1.1.2001, lower left)
-     - 600 is slightly above and to the right
-     - 750 is at the next crossing
-     - 900 is at the next position
-     - 1000 is further along
-     - 1200 is near 1.1.2004
-     - 800 is at the top right (near 1.1.2005)
-
-     These could be: stocks increasing due to... no, that doesn't make sense for emigration.
-
-     FINAL definitive interpretation (common in Spanish actuarial textbooks):
-
-     The numbers represent alternating stocks and emigration flows along the lifeline.
-
-     Going from bottom-left to top-right:
-     - 500 = S₁ = Stock at first crossing point
-     - 600 = E₁ = Emigration in next triangle
-     - 750 = S₂ = Stock at next crossing
-     - 900 = E₂ = Emigration
-     - 1000 = S₃ = Stock
-     - 1200 = S₄ or E₃
-     - 800 = S₅
-
-     Wait, numbers are going UP not down. If these were stocks after emigration, they should
-     go DOWN. So they can't all be stocks with emigration reducing them.
-
-     Unless the numbers at the left side (500, 600) are emigration flows and the ones at
-     the right (1000, 1200, 800) are stocks. But that doesn't make geometric sense.
-
-     Let me try: the large numbers (1000, 1200) are stocks and small numbers (500, 600, 750, 900, 800) are emigration.
-
-     If stocks at:
-     - Some point: 1000
-     - Another point: 1200
-     And emigration flows are 500, 600, 750, 900, 800.
-
-     From the visual layout in the image:
-     Top area: 800 and 1200 (near ages 28-29, 2004-2005)
-     Middle: 900 and 1000 (near ages 27-28, 2003-2004)
-     Lower: 500, 600, 750 (near ages 25-27, 2001-2003)
-
-     OK, I think the most logical reading is:
-
-     The numbers along the LIFELINE (at the kink points) are stocks.
-     The numbers in the TRIANGLES (between kink points) are emigration flows.
-
-     Looking at positions on the lifeline (diagonal):
-     - At 1.1.2002, crossing from 25 to 26: stock reading
-     - At 1.1.2003: stock reading
-     - At 1.1.2004: stock reading
-     - At 1.1.2005: stock reading
-
-     And between these points (in triangles): emigration readings.
-
-     I think the correct reading from bottom-left to top-right is:
-
-     Emigrations and stocks INTERLEAVED:
-     E₁ = 500 (emigration in lower tri, 2001, age 25)
-     S₁ = 600 (stock at 1.1.2002, 25 cumplidos)  -- Hmm, 600 > 500 doesn't work if we start from unknown stock minus 500.
-
-     OR:
-     S₁ = 500 (stock at some point)
-     E₁ = emigration...
-
-     I think I've been overthinking this. Let me commit to a specific, internally consistent version:
-
-     DEFINITIVE: From the image, the generation is 1976.
-
-     STOCKS at 1.1.XXXX:
-     - S(1.1.2001) at 24 cumplidos: not shown (starts before diagram)
-     - S(1.1.2002) at 25 cumplidos: 1200
-     - S(1.1.2003) at 26 cumplidos: 1000
-     - S(1.1.2004) at 27 cumplidos: 900
-     - S(1.1.2005) at 28 cumplidos: 800
-
-     EMIGRATION flows (in triangles):
-     - Lower tri (2002, 26): 600
-     - Upper tri (2002, 25): something
-     Wait, with these stocks: from 1200 to 1000, total emigration = 200. But 600 > 200. Contradiction.
-
-     Let me try another direction. Maybe the lifeline goes DOWN (stocks decrease):
-     - S(1.1.2002) = 1200
-     - S(1.1.2003) = 1000
-     - S(1.1.2004) = 900
-     - S(1.1.2005) = 800
-
-     Emigration flows: 500, 600, 750
-
-     From 1200 to 1000: total emigration = 200, but numbers 500, 600 are bigger. Still doesn't work.
-
-     OK, I think the stocks must be the bigger numbers and some of the smaller numbers too:
-
-     Let me try:
-     Stocks: 1200 → 1000 → 800 (but we need 4 stocks for 4 years)
-
-     Or perhaps the reading should be:
-     1200 at 1.1.2001 (initial)
-     1000 at 1.1.2002
-     800 at 1.1.2003 or 2004
-
-     Emigration: 500+600+750+900 = 2750 total, but 1200-800=400. Doesn't work.
-
-     The numbers MUST be the outflows (emigration) with large stocks not explicitly shown.
-     That is: 500, 600, 750, 900, 1000, 1200, 800 are ALL emigration flows in different triangles.
-
-     With total emigration = 500+600+750+900+1000+1200+800 = 5750.
-
-     And the questions ask to CALCULATE stocks. That makes sense with the problem statement!
-
-     So:
-     "los datos que aparecen en el diagrama de Lexis corresponden a las salidas por emigración
-     y a los stocks de los individuos de una generación"
-
-     So SOME are stocks and SOME are emigration. The question asks us to calculate other stocks.
-
-     Reading from the image positions more carefully, here's my final reading:
-
-     Along the lifeline of the generation, going from bottom-left to top-right:
-
-     At the crossing points (where lifeline meets 1.1. vertical lines or age exact lines),
-     we see stocks. In between, we see emigration.
-
-     The numbers arranged spatially (my best read from the PDF image):
-     - Near 1.1.2001 area, bottom: 500 (text appears to be near a kink point → STOCK)
-     - Just above: 600 (in a triangle area → EMIGRATION)
-     - At 1.1.2002 crossing: 750 → STOCK
-     - In triangle: 900 → EMIGRATION
-     - At 1.1.2003: 1000 → STOCK
-     - In triangle: 1200 → EMIGRATION
-     - At 1.1.2004: 800 → STOCK?
-
-     Hmm but then stocks would go 500, 750, 1000 (increasing) and emigration 600, 900, 1200 (increasing).
-     If stocks go UP with emigration, that's impossible without immigration (which is excluded).
-
-     UNLESS... the initial stock is much larger and the "stocks" shown are the KINK stocks
-     (at the diagonal crossings of exact ages, NOT at 1.1. dates).
-
-     In a Lexis diagram for a generation, the lifeline has kink points at:
-     - 1.1.XXXX dates (vertical line crossings)
-     - exact age dates (horizontal line crossings)
-
-     For gen 1976:
-     - Exact age 25: this occurs sometime in 2001 (the whole generation passes through)
-       Under uniformity hypothesis: mid-2001
-     - 1.1.2002: gen 1976 has 25 cumplidos
-     - Exact age 26: mid-2002
-     - 1.1.2003: 26 cumplidos
-     - etc.
-
-     So alternating: exact ages and 1.1. dates.
-
-     Possible reading:
-     Kink 1 (exact age 25, ~mid 2001): stock of survivors at age 25 exact
-     Kink 2 (1.1.2002, 25 cumplidos): stock at 1.1.2002
-     ...
-
-     The answer to the exercise is more interesting if:
-     - Some numbers are given as stocks at 1.1. dates
-     - Some as emigration flows in triangles
-     - And we calculate the missing stocks
-
-     Let me go with this final version which makes a coherent problem:
-
-     Generation born in 1976.
-
-     Given (from diagram):
-     Emigration flows in each triangle:
-     - Lower tri (2001, 25): 500 emigrants
-     - Upper tri (2002, 25): 750 emigrants  [wait, need to check c+x vs c+x+1]
-       For gen 1976: lower tri at age 25 is at year 1976+25=2001. ✓
-       Upper tri at age 25 is at year 1976+25+1=2002. ✓
-     - Lower tri (2002, 26): 600 emigrants (year=1976+26=2002) ✓
-     - Upper tri (2003, 26): 900 emigrants (year=1976+26+1=2003) ✓
-
-     Stocks at 1.1.:
-     - 1.1.2001, 24 cumplidos (or entering age 25 band): 1200
-     - Others: to be calculated
-
-     With emigration subtracting from stocks:
-     Stock at mid-2001 (exact age 25) = 1200 - 500 = 700
-     Stock at 1.1.2002 (25 cumplidos) = 700 - 750 = -50 → IMPOSSIBLE
-
-     So 1200 is NOT the initial stock with those emigration numbers.
-
-     OK, I'll go with a different but clean assignment.
-
-     After extensive analysis of the image, here is my definitive interpretation:
-
-     The diagram has a lifeline for generation 1976 going from age 25 to age 29.
-
-     Numbers ON the lifeline (at the crossing points where lifeline meets horizontal age lines)
-     represent STOCKS at exact ages = number of people who reach that exact age.
-
-     Numbers in the triangles (between the crossing points) represent EMIGRATION.
-
-     From the positioning in the image (bottom to top, left to right):
-
-     Emigration flows (in the triangles, with dashed outflow arrows):
-     - E₁ = 500 (lower tri, year 2001, age 25)
-     - E₂ = 600 (upper tri, year 2002, age 25)
-     - E₃ = 750 (lower tri, year 2002, age 26)
-     - E₄ = 900 (upper tri, year 2003, age 26)
-     - E₅ = 1000 (lower tri, year 2003, age 27)
-     - E₆ = 1200 (upper tri, year 2004, age 27)
-
-     Stock at exact age 29 (at 1.1.2005): 800
-
-     Then working backwards:
-     Stock at exact age 28 = 800 + E_after = 800 + (lower tri 2004, age 28) + (upper tri 2005, age 28)
-     But we don't have those numbers...
-
-     I think I need to simplify and just present a clean, solvable version based on the visible data.
-
-     FINAL FINAL interpretation. Since the problem says "suponiendo ausencia de mortalidad e inmigración",
-     and asks us to "calcular" specific things, the given data must be sufficient.
-
-     4.1 asks: individuals with 28 cumplidos at 1.1.2005
-     4.2 asks: individuals who haven't emigrated at exact age 27
-
-     For generation 1976:
-     - At 1.1.2005: 28 cumplidos (2005-1976-1=28). ✓
-     - Exact age 27: this is the point where the gen crosses age 27.
-
-     From the image, reading the numbers as emigration flows in triangles and
-     the numbers at diagonal kink points as stocks:
-
-     I'll go with this consistent version based on reading the numbers carefully:
-
-     Numbers in the image represent emigration and are placed in triangles:
-     Lower-tri emigrations: 500, 600, 750, 900 (in successive lower triangles)
-     Upper-tri emigrations: 1000, 1200 (in upper triangles)
-     Plus an 800 somewhere.
-
-     But actually the simplest reading that makes the problem work:
-
-     Let's say the diagram shows:
-     - Stock at exact age 25 (l₂₅): not explicitly given
-     - In each parallelogram or triangle, emigration numbers are given
-
-     For Q4.1 and Q4.2 to be answerable, we need enough data.
-
-     I'll construct a clean problem with these values:
-
-     Initial stock at 1.1.2001 (generation 1976, 24 cumplidos) is NOT shown.
-
-     Let me try reading the numbers differently. What if there are only a few numbers
-     and they represent key stocks and one or two emigration values?
-
-     Based on the physical layout in the image:
-
-     Lower left to upper right along the lifeline:
-     Position 1 (near 1.1.2001, age 25): annotation shows 500 → this seems like a stock
-     Position 2 (near 1.1.2002, age 26): 600 → stock
-     Position 3 (near 1.1.2003, age 27): 750 → stock
-     Position 4 (near 1.1.2004, age 28): 900 → stock
-
-     And the EMIGRATION numbers in the triangles:
-     Near the upper part: 1000, 1200, 800
-
-     But then: stocks going from 500 to 900 means INCREASING, which means immigration
-     exceeding emigration. But the problem says NO immigration. Contradiction again.
-
-     The ONLY way this works with no immigration and no mortality is:
-     Stock should DECREASE over time: initial > ... > final
-     So stocks must be the bigger numbers: 1200 > 1000 > 900 > 800 > ...
-
-     TRULY FINAL interpretation:
-
-     The numbers in the image from bottom-left to top-right:
-     1200 = initial stock at 1.1.2001 (or exact age 25)
-     -500 = emigration in first triangle
-     = 700 survivors
-     But 700 is not shown, and the next number visible is 1000. So 1000 ≠ 700.
-
-     Unless emigration in first triangle is NOT 500.
-
-     OK I am going to commit to numbers that make the problem work cleanly and match
-     the visual layout. Here's my definitive, consistent reading:
-
-     The numbers, positioned from the diagram:
-
-     AT 1.1 crossing points (STOCKS):
-     1.1.2001, 24 cumplidos: ??? (off diagram or not shown)
-     Let me say we can see in the diagram near the lifeline kinks:
-
-     Actually, I think the correct reading (looking at the relative positions) is:
-
-     The NUMBERS NEXT TO THE DASHED EMIGRATION ARROWS = emigration
-     The NUMBERS ON THE LIFELINE AT KINK POINTS = stocks
-
-     Stocks:
-     - 1200 near 1.1.2001-2002 area
-     - 1000 near 1.1.2002-2003 area
-     - 900 near 1.1.2003-2004 area
-     - 800 near 1.1.2004-2005 area
-
-     Emigration flows:
-     - 500 in a triangle
-     - 600 in a triangle
-     - 750 in a triangle
-
-     Then: 1200 - X₁ = 1000, so X₁ = 200
-     1000 - X₂ = 900, so X₂ = 100
-     900 - X₃ = 800, so X₃ = 100
-
-     But the visible emigration numbers (500, 600, 750) don't match these differences (200, 100, 100).
-
-     I THINK I finally understand: the numbers 500, 600, 750, 900, 1000, 1200, 800 are ALL AT
-     KINK POINTS (where the lifeline crosses horizontal age lines or 1.1. vertical lines).
-     These are ALL stocks at different time points.
-
-     For a generation, the lifeline has kinks at 1.1. dates and at exact-age dates.
-     Between 1.1.2001 and 1.1.2005, there are crossings at:
-     1.1.2001, mid-2001 (age 25), 1.1.2002 (25 cumpl), mid-2002 (age 26), 1.1.2003 (26 cumpl),
-     mid-2003 (age 27), 1.1.2004 (27 cumpl), mid-2004 (age 28), 1.1.2005 (28 cumpl)
-
-     That's 9 crossings from 1.1.2001 to 1.1.2005 (4 at 1.1. + 4 at mid-year + 1).
-     But we only have 7 numbers. This could work if the first and last are at the diagram edges.
-
-     So: 500, 600, 750, 900, 1000, 1200, 800 are stocks at successive kink points.
-     But they're NOT monotonically decreasing (500 < 600 < 750 < 900 < 1000 < 1200 > 800).
-     This ALSO can't be right with only emigration reducing them.
-
-     ONE MORE TRY: the numbers go from TOP-RIGHT to BOTTOM-LEFT (the highest numbers
-     are earliest in time, and they decrease):
-
-     Starting with 1200 and going down:
-     1200, 1000, 900, 800, 750, 600, 500
-
-     That's monotonically decreasing! This makes sense with emigration reducing the population.
-
-     So reading from the image, top-right to bottom-left (which is AGAINST the flow of time
-     on the lifeline... wait, that's backwards).
-
-     Lifeline goes bottom-left to top-right (earlier time = bottom-left, later time = top-right).
-
-     If earlier = bigger stock, then the numbers at bottom-left should be biggest.
-     But in the image, 500 is at bottom-left and 1200/800 at top-right.
-     So the stock INCREASES then drops. That requires immigration, which is excluded.
-
-     UNLESS these are CUMULATIVE emigration counts, not stocks!
-     Total emigration from the start: 500 after first period, 600 after second, etc.
-     But that's not standard and the problem says "stocks".
-
-     I give up trying to perfectly decode the image and will use a reasonable set of numbers
-     that matches the image layout and gives a solvable problem.
-
-     Based on the image, I'll use:
-
-     Generation 1976. The numbers in the diagram are:
-     - STOCKS at 1.1. crossing points: shown at specific kink points on the lifeline
-     - EMIGRATION: shown as annotations in the triangles near the dashed outflow lines
-
-     I'll use this clean assignment:
-
-     Stocks at 1.1. (reading from the kink points on the lifeline):
-     1.1.2002 (25 cumplidos): 1200
-     1.1.2003 (26 cumplidos): 1000
-     1.1.2004 (27 cumplidos): 900
-
-     Emigration flows in triangles:
-     Lower tri (2002, 26): 750 (gen 1976, age 26, year 2002=c+x ✓)
-     Upper tri (2003, 26): 600 (gen 1976, age 26, year 2003=c+x+1 ✓)
-     No wait, need: 1200 - lower_em(25) - upper_em(25) = ?, and then ...
-
-     Let me just be pragmatic and assign:
-
-     Stocks at 1.1 vertical crossings (on the lifeline):
-     P(1.1.2002) = 1200 (25 cumplidos)
-     P(1.1.2003) = 1000 (26 cumplidos)
-     P(1.1.2004) = 900 (27 cumplidos)
-     P(1.1.2005) = ??? (28 cumplidos) ← Q4.1 asks this
-
-     Emigration in triangles:
-     Lower tri (2004, 28) for gen 1976: 800 emigrants
-     Upper tri (2004, 27) for gen 1976: 500 emigrants
-     (These are the numbers seen in the triangles near the top of the diagram)
-
-     Then: P(1.1.2005) = P(1.1.2004) - emigration in lower tri(2004,27) and upper tri(2004,27)
-     Wait, between P(1.1.2004) and P(1.1.2005):
-     - Lower tri at (2004, 27): gen 1976, age 27, year 2004: c+x=1976+27=2003≠2004.
-     - This is wrong. Lower tri at age 27 for gen 1976 is at year 2003.
-
-     Between 1.1.2004 and 1.1.2005, gen 1976 goes through:
-     - Upper tri at (2004, 27): c+x+1=1976+27+1=2004 ✓
-     - Lower tri at (2004, 28): c+x=1976+28=2004 ✓
-
-     So: P(1.1.2005) with 28 cumplidos = P(1.1.2004) with 27 cumplidos - em(upper tri 2004, 27) - em(lower tri 2004, 28)
-
-     I'll just set clean numbers. Here's my FINAL version:
-
-     Stocks (on lifeline at 1.1. crossings):
-     P₂₅(1.1.2002) = 1200
-     P₂₆(1.1.2003) = 1000
-     P₂₇(1.1.2004) = 900
-
-     Emigration (in triangles):
-     E in upper tri (2002, 25) = 500
-     E in lower tri (2002, 26) = 600
-     E in upper tri (2003, 26) = 750
-     E in lower tri (2003, 27) = 900 — WAIT, that conflicts with a stock = 900 at the same loc.
-
-     Ugh. OK let me just pick non-conflicting numbers.
-
-     Here is the problem as I'll present it (ensuring internal consistency):
-
-     Generation 1976.
-
-     From the diagram, the following data are visible:
-
-     Emigration in each triangle along the lifeline:
-     E₁ = 500 (upper tri at year 2004, age 27): c+x+1 = 1976+27+1=2004 ✓
-     E₂ = 750 (lower tri at year 2004, age 28): c+x = 1976+28=2004 ✓
-
-     Stock: P₂₇(1.1.2004) = 1200 (generation 1976, 27 cumplidos at 1.1.2004)
-
-     Then:
-     Survivors at exact age 28 = P₂₇(1.1.2004) - E₁ = 1200 - 500 = 700
-     P₂₈(1.1.2005) = survivors at age 28 - E₂ = 700 - 750 = -50 → IMPOSSIBLE again!
-
-     Emigration can't exceed the stock. The emigration numbers must be SMALLER.
-
-     OK, I'll just invent clean, small emigration numbers.
-
-     Let me STOP trying to match exact numbers from the blurry image and instead use a
-     reasonable problem setup that teaches the concepts.
-
-     I'll go with:
-     Generation 1976.
-
-     Diagram shows emigration and stock data:
-
-     Stocks at 1.1:
-     - P(1.1.2002, 25 cumpl.) = 1200
-
-     Emigration flows:
-     - Upper tri (2002, 25): 50
-     - Lower tri (2002, 26): 40
-     - Upper tri (2003, 26): 60
-     - Lower tri (2003, 27): 30
-     - Upper tri (2004, 27): 45
-     - Lower tri (2004, 28): 35
-
-     Survivors at exact ages:
-     l₂₆ = 1200 - 50 = 1150
-     P₂₆(1.1.2003) = 1150 - 40 = 1110
-     l₂₇ = 1110 - 60 = 1050
-     P₂₇(1.1.2004) = 1050 - 30 = 1020
-     l₂₈ = 1020 - 45 = 975 ← answer to 4.2: "individuos que no han emigrado a edad exacta 27"
-     Wait Q4.2 asks for "no han emigrado a edad exacta 27" which is survivors at exact age 27.
-     That would be l₂₇ = 1050.
-
-     P₂₈(1.1.2005) = 975 - 35 = 940 ← answer to 4.1
-
-     These numbers work! But they don't match the image (500, 600, 750, 900, 1000, 1200, 800).
-
-     Let me try one more time with the image numbers.
-     Maybe the numbers are NOT all different types. Maybe they're:
-
-     ALL STOCKS at successive kink points, going DOWN from top-right to bottom-left:
-     1200 → 1000 → 900 → 800 → 750 → 600 → 500
-
-     These would be the stocks at:
-     P₂₈(1.1.2005) = 500  (latest time, bottom of the remaining)
-     l₂₈ exact = 600
-     P₂₇(1.1.2004) = 750
-     l₂₇ exact = 800
-     P₂₆(1.1.2003) = 900
-     l₂₆ exact = 1000
-     P₂₅(1.1.2002) = 1200
-
-     BUT: in the image, 1200 appears at the TOP-RIGHT (latest time) and 500 at BOTTOM-LEFT
-     (earliest time). This contradicts the decreasing stock interpretation.
-
-     UNLESS the image is oriented differently than I think...
-
-     Actually, in a Lexis diagram with age on Y and time on X, the lifeline goes from
-     lower-left (young/early) to upper-right (old/late). So:
-     - Lower-left = earliest time = highest stock
-     - Upper-right = latest time = lowest stock
-
-     But in the image:
-     - Lower-left has 500 (smallest)
-     - Upper-right has 800 (larger than 500)
-     - Middle has 1200 (largest)
-
-     So 500 at bottom-left doesn't match "highest stock" at earliest time.
-
-     One possibility: the starting stock is large (not shown) and we only see from a point where
-     the population has already been significantly reduced by emigration.
-
-     Another possibility: I'm misreading the positions. Maybe 1200 IS at the lower-left
-     and 500 is higher up.
-
-     Given how much time I've spent on this, I'll just create a clean problem that demonstrates
-     the concepts properly, using the numbers from the image in a way that works.
-
-     HERE IS MY FINAL, DEFINITIVE version:
-
-     Generation 1976.
-
-     The diagram shows STOCKS at the following points where the lifeline crosses 1.1. vertical lines:
-     - P(1.1.2001) at 24 cumplidos = (not visible, before the diagram range)
-     - P(1.1.2002) at 25 cumplidos = 1200
-     - P(1.1.2003) at 26 cumplidos = 1000
-     - P(1.1.2004) at 27 cumplidos = 900
-     (The population decreases due to emigration: 1200→1000→900)
-
-     And EMIGRATION flows in selected triangles:
-     - Upper tri (2004, 27): 50 emigrants
-     - Lower tri (2004, 28): 50 emigrants
-
-     Then:
-     4.1: P(1.1.2005) at 28 cumplidos = 900 - 50 - 50 = 800 ← matches a visible number!
-
-     For Q4.2: "individuos que no han emigrado a la edad exacta de 27 años"
-     = survivors at exact age 27 = l₂₇
-     = P(1.1.2003) - emigration between 1.1.2003 and exact age 27
-     For gen 1976, exact age 27 occurs during 2003 (lower tri of age 27 at year 2003).
-
-     Wait, this gets complicated. Let me just keep it simple with visible numbers.
-
-     OK here's what I'll do: use the numbers 500, 600, 750, 900, 1000, 1200, 800 from the image
-     and assign them as follows (all as emigration flows, reading from one end to the other).
-     Then have a large initial stock.
-
-     Actually, you know what, let me just present the SOLUTION in a way that's pedagogically
-     clear, using whatever numbers are in the PDF, and if I can't read them perfectly,
-     I'll note the structure of the solution.
-
-     Given the difficulty of precisely reading the handwritten diagram, I'll present this exercise
-     with the following reasonable interpretation:
+  /*
+     Datos del diagrama PDF:
+     - Generación 1976 (a 1.1.2001 tienen 25 años cumplidos → 2001 - 25 = 1976)
+     - Stock inicial: 30.000 (etiquetado al inicio de la línea de vida)
+     - Emigraciones en 7 triángulos sucesivos a lo largo de la línea de vida:
+       Tri inf (2001,25)=500, Tri sup (2002,25)=600,
+       Tri inf (2002,26)=750, Tri sup (2003,26)=900,
+       Tri inf (2003,27)=1.000, Tri sup (2004,27)=1.200,
+       Tri inf (2004,28)=800
+     - No hay mortalidad ni inmigración → solo se pierde población por emigración
+
+     Cálculos:
+     - l₂₇ = 30.000 - 500 - 600 - 750 - 900 = 27.250 (supervivientes a edad exacta 27)
+     - P₂₈(1.1.2005) = 27.250 - 1.000 - 1.200 - 800 = 24.250 (stock a 1.1.2005)
   */
-
-  // For the solution, I'll use a clear, consistent set of numbers.
-  // The Lexis diagram for the exercise shows:
-  // Generation 1976, ages 25-29, years 2001-2005
-  // Emigration data and stocks shown on diagram.
 
   const configLexis: LexisConfig = {
     startYear: 2001,
@@ -1721,19 +962,18 @@ function Ejercicio4() {
       { cohort: 1976, color: "#3b82f6" },
     ],
     surfaces: [
-      // Emigration flows shown in triangles
+      // Emigraciones en 7 triángulos sucesivos a lo largo de la línea de vida gen 1976
       { type: "triangulo-inf", year: 2001, age: 25, color: "#ef4444", label: "500", opacity: 0.3 },
       { type: "triangulo-sup", year: 2002, age: 25, color: "#f59e0b", label: "600", opacity: 0.3 },
       { type: "triangulo-inf", year: 2002, age: 26, color: "#ef4444", label: "750", opacity: 0.3 },
       { type: "triangulo-sup", year: 2003, age: 26, color: "#f59e0b", label: "900", opacity: 0.3 },
-      { type: "triangulo-inf", year: 2003, age: 27, color: "#ef4444", label: "1000", opacity: 0.3 },
-      { type: "triangulo-sup", year: 2004, age: 27, color: "#f59e0b", label: "1200", opacity: 0.3 },
+      { type: "triangulo-inf", year: 2003, age: 27, color: "#ef4444", label: "1.000", opacity: 0.3 },
+      { type: "triangulo-sup", year: 2004, age: 27, color: "#f59e0b", label: "1.200", opacity: 0.3 },
+      { type: "triangulo-inf", year: 2004, age: 28, color: "#ef4444", label: "800", opacity: 0.3 },
     ],
-    stockLines: [
-      // Stock at 1.1.2005, 28 cumplidos (vertical)
-    ],
+    stockLines: [],
     annotations: [
-      { x: 2005.4, y: 29.5, text: "800", fontSize: 11, color: "#333" },
+      { x: 2001.05, y: 25.4, text: "30.000", fontSize: 11, color: "#22c55e" },
     ],
   };
 
@@ -1758,17 +998,18 @@ function Ejercicio4() {
       { type: "triangulo-sup", year: 2002, age: 25, color: "#f59e0b", label: "600", opacity: 0.25 },
       { type: "triangulo-inf", year: 2002, age: 26, color: "#ef4444", label: "750", opacity: 0.25 },
       { type: "triangulo-sup", year: 2003, age: 26, color: "#f59e0b", label: "900", opacity: 0.25 },
-      { type: "triangulo-inf", year: 2003, age: 27, color: "#ef4444", label: "1000", opacity: 0.25 },
-      { type: "triangulo-sup", year: 2004, age: 27, color: "#f59e0b", label: "1200", opacity: 0.25 },
+      { type: "triangulo-inf", year: 2003, age: 27, color: "#ef4444", label: "1.000", opacity: 0.25 },
+      { type: "triangulo-sup", year: 2004, age: 27, color: "#f59e0b", label: "1.200", opacity: 0.25 },
+      { type: "triangulo-inf", year: 2004, age: 28, color: "#ef4444", label: "800", opacity: 0.25 },
     ],
     stockLines: [
       // Stock at 1.1.2005, 28 cumplidos
-      { type: "vertical", year: 2005, age: 28, endAge: 29, color: "#8b5cf6", label: "P₂₈=800", thickness: 4 },
+      { type: "vertical", year: 2005, age: 28, endAge: 29, color: "#8b5cf6", label: "P₂₈=24.250", thickness: 4 },
       // Survivors at exact age 27
-      { type: "horizontal", year: 2003, age: 27, endYear: 2004, color: "#22c55e", label: "l₂₇", thickness: 4 },
+      { type: "horizontal", year: 2003, age: 27, endYear: 2004, color: "#22c55e", label: "l₂₇=27.250", thickness: 4 },
     ],
     annotations: [
-      { x: 2005.5, y: 29.5, text: "800", fontSize: 10, color: "#333" },
+      { x: 2001.05, y: 25.4, text: "30.000", fontSize: 10, color: "#22c55e" },
     ],
   };
 
@@ -1785,9 +1026,9 @@ function Ejercicio4() {
             una generación, suponiendo la ausencia de mortalidad y de inmigración.
           </p>
           <p className="text-sm text-muted-foreground">
-            La generación corresponde a los nacidos en 1976. Los números dentro de los
-            triangulos representan las emigraciones en cada período. El número 800 en la
-            esquina superior derecha representa el stock final visible.
+            La generación corresponde a los nacidos en 1976. El stock inicial es de 30.000
+            individuos. Los números dentro de los triángulos representan las emigraciones
+            en cada período (500, 600, 750, 900, 1.000, 1.200 y 800).
           </p>
           <div className="max-w-xl mx-auto">
             <LexisDiagram config={configLexis} />
@@ -1813,17 +1054,15 @@ function Ejercicio4() {
             <h4 className="font-semibold">4.1 Individuos con 28 cumplidos en 01.01.2005</h4>
             <p className="text-sm">
               En ausencia de mortalidad e inmigración, el stock solo disminuye por emigración.
-              El stock a 1.1.2005 con 28 cumplidos corresponde a los supervivientes de la
-              generación 1976 que no han emigrado.
+              Partimos del stock inicial de <strong>30.000</strong> y restamos todas las
+              emigraciones en los 7 triángulos que recorre la generación 1976:
             </p>
-            <p className="text-sm">
-              El dato 800 visible en el diagrama en la esquina superior derecha corresponde a
-              este stock. Para verificar, podemos rastrear la evolucion de la generación sumando
-              las emigraciones de todos los triangulos anteriores y restandolas del stock inicial.
+            <p className="text-sm font-mono bg-muted p-2 rounded">
+              P₂₈(1.1.2005) = 30.000 - 500 - 600 - 750 - 900 - 1.000 - 1.200 - 800 = 24.250
             </p>
             <ResultHighlight
               label="P₂₈(01.01.2005)"
-              value="800"
+              value="24.250"
               unit="individuos con 28 años cumplidos"
             />
           </div>
@@ -1832,29 +1071,26 @@ function Ejercicio4() {
           <div className="space-y-3">
             <h4 className="font-semibold">4.2 Individuos que no han emigrado a la edad exacta de 27 años</h4>
             <p className="text-sm">
-              Los supervivientes a la edad exacta de 27 años (l₂₇) se obtienen sumando las
-              emigraciones desde la edad exacta 27 hasta el final visible y restando del stock conocido,
-              o bien trabajando hacia adelante desde un stock anterior.
+              Los supervivientes a la edad exacta 27 (l₂₇) son los individuos de la generación
+              1976 que alcanzan su 27.º cumpleaños sin haber emigrado. Este momento ocurre
+              durante el año 2003 (1976 + 27 = 2003).
             </p>
             <p className="text-sm">
-              Trabajando <strong>hacia atras</strong> desde P₂₈(1.1.2005) = 800:
-            </p>
-            <p className="text-sm">
-              Entre la edad exacta 27 y el 1.1.2005, la generación 1976 pasa por:
+              Partimos del stock inicial de <strong>30.000</strong> y restamos las emigraciones
+              que ocurren <strong>antes</strong> de cumplir 27 años (triángulos a edades 24, 25 y 26):
             </p>
             <ul className="text-sm list-disc list-inside space-y-1">
-              <li>Triangulo inferior (2003, edad 27): emigran 1.000</li>
-              <li>Triangulo superior (2004, edad 27): emigran 1.200</li>
+              <li>Triángulo inferior (2001, edad 25): emigran 500</li>
+              <li>Triángulo superior (2002, edad 25): emigran 600</li>
+              <li>Triángulo inferior (2002, edad 26): emigran 750</li>
+              <li>Triángulo superior (2003, edad 26): emigran 900</li>
             </ul>
-            <p className="text-sm mt-2">
-              Como no hay mortalidad ni inmigración:
-            </p>
             <p className="text-sm font-mono bg-muted p-2 rounded">
-              l₂₇ = P₂₈(1.1.2005) + E(tri.inf 2003, 27) + E(tri.sup 2004, 27) = 800 + 1.000 + 1.200 = 3.000
+              l₂₇ = 30.000 - 500 - 600 - 750 - 900 = 27.250
             </p>
             <ResultHighlight
               label="Supervivientes a edad exacta 27 (l₂₇)"
-              value="3.000"
+              value="27.250"
               unit="individuos que no han emigrado al cumplir 27 años"
             />
           </div>
@@ -1872,8 +1108,8 @@ function Ejercicio4() {
               <LexisDiagram config={configSolution} />
               <LexisLegend items={[
                 { color: "#3b82f6", label: "Generación 1976", type: "lifeline" },
-                { color: "#8b5cf6", label: "Stock P₂₈(1.1.2005) = 800", type: "line" },
-                { color: "#22c55e", label: "l₂₇ = 3.000 (edad exacta 27)", type: "line" },
+                { color: "#8b5cf6", label: "Stock P₂₈(1.1.2005) = 24.250", type: "line" },
+                { color: "#22c55e", label: "l₂₇ = 27.250 (edad exacta 27)", type: "line" },
               ]} />
             </div>
           </div>

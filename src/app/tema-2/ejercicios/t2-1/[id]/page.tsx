@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { LexisConfig } from "@/types/lexis";
-import { BookOpen, ArrowLeft, ArrowRight, Lightbulb } from "lucide-react";
+import { BookOpen, ArrowLeft, ArrowRight, Lightbulb, AlertTriangle } from "lucide-react";
 
 /* ────────────────────────────────────────────
    Ejercicio 1 - Interpretación de líneas y areas
@@ -1127,26 +1127,26 @@ function Ejercicio4() {
   */
 
   const indicators = [
-    { id: "A", desc: "Personas de 0-15 años / población total", type: "Proporción", explanation: "El numerador (personas de 0-15) es una parte del denominador (población total). Ambos son stocks en el mismo instante. Valor entre 0 y 1." },
-    { id: "B", desc: "Personas de 0-15 años / personas de 65 o más años", type: "Razon", explanation: "El numerador y el denominador son dos grupos diferentes que no se solapan. Es un índice de dependencia demográfica (razón jovenes/mayores)." },
-    { id: "C", desc: "Muertes registradas en un año / población media del año", type: "Tasa", explanation: "Flujo (defunciones) dividido entre stock medio (población media). Es la tasa bruta de mortalidad. Tiene dimension temporal (por ano)." },
-    { id: "D", desc: "Hombres / mujeres", type: "Razon", explanation: "Dos grupos disjuntos de la población. Es la razón de masculinidad (sex ratio). El numerador no forma parte del denominador." },
-    { id: "E", desc: "Televisores / telefonos", type: "Razon", explanation: "Objetos de naturaleza distinta. Es una simple razón, no una proporción ni tasa." },
-    { id: "F", desc: "Telefonos fijos / telefonos de todo tipo", type: "Proporción", explanation: "Los telefonos fijos son un subconjunto de todos los telefonos. El numerador esta incluido en el denominador. Valor entre 0 y 1." },
-    { id: "G", desc: "Coches matriculados durante un año / parque medio de coches", type: "Tasa", explanation: "Flujo (matriculaciones) dividido entre stock medio (parque medio). Es una tasa de renovacion del parque automovilistico." },
-    { id: "H", desc: "Personas que llegan vivas a los 40 / personas que llegaron vivas a los 30", type: "Probabilidad", explanation: "Se sigue a un grupo (cohorte) desde los 30 años y se observa cuantos sobreviven hasta los 40. Es una probabilidad de supervivencia ₁₀p₃₀." },
-    { id: "I", desc: "Gen. 1920: fallecidos antes de 80 / nacimientos iniciales", type: "Probabilidad", explanation: "Se parte de los nacimientos iniciales de una generación y se observa que fraccion fallece antes de los 80. Es una probabilidad de muerte en sentido longitudinal (₈₀q₀)." },
-    { id: "J", desc: "Nacimientos femeninos / total de nacimientos (en un año)", type: "Proporción", explanation: "Los nacimientos femeninos son parte del total de nacimientos (ambos flujos del mismo período). Es la proporción de nacimientos femeninos." },
-    { id: "K", desc: "Mujeres divorciadas / mujeres que empezaron casadas (en un año)", type: "Probabilidad", explanation: "Se parte de un colectivo inicial (mujeres casadas al inicio del ano) y se observa que proporción experimenta el divorcio. Es una probabilidad de divorcio para ese colectivo." },
-    { id: "L", desc: "Coches matriculados / total de vehiculos matriculados", type: "Proporción", explanation: "Los coches son un subconjunto de los vehiculos matriculados. Ambos son flujos del mismo período. Es una proporción (parte del todo)." },
-    { id: "M", desc: "Personas en paro / personas en edad de trabajar", type: "Proporción", explanation: "Las personas en paro que están en edad de trabajar son un subconjunto de las personas en edad de trabajar (ambos stocks). Es la tasa de paro, que en realidad es una proporción." },
-    { id: "N", desc: "Sillas / mesas", type: "Razon", explanation: "Objetos de naturaleza distinta. El numerador no esta incluido en el denominador. Es una simple razón." },
-    { id: "N2", desc: "Personas que obtienen el carnet / personas que se presentan al examen", type: "Probabilidad", explanation: "Se parte de un colectivo (los que se presentan) y se observa que proporción logra el resultado (obtener el carnet). Es una probabilidad de exito." },
-    { id: "O", desc: "Conciertos de rock / conciertos de jazz", type: "Razon", explanation: "Dos categorias diferentes de conciertos. El numerador no forma parte del denominador. Es una razón." },
-    { id: "P", desc: "Personas que fallecen / personas vivas al empezar el año", type: "Probabilidad", explanation: "Flujo (defunciones durante el ano) dividido entre stock inicial (población al inicio). Es la probabilidad de muerte q, ya que se relaciona el evento con el colectivo inicial expuesto." },
-    { id: "Q", desc: "Nacimientos durante un año / población media del año", type: "Tasa", explanation: "Flujo (nacimientos) dividido entre stock medio (población media). Es la tasa bruta de natalidad. Tiene dimension temporal." },
-    { id: "R", desc: "Personas de 40 años con estudios superiores / todas las personas de 40 años", type: "Proporción", explanation: "Las personas de 40 con estudios superiores son un subconjunto de todas las de 40 años (ambos stocks). Es una proporción." },
-    { id: "S", desc: "Mujeres / población total", type: "Proporción", explanation: "Las mujeres son un subconjunto de la población total (stock / stock). Es la proporción de mujeres (feminidad)." },
+    { id: "A", desc: "Personas de 0-15 años / población total", type: "Proporción", explanation: "¿Los jóvenes están dentro de la población total? Sí → parte del todo. ¿Hay flujo? No, ambos son stocks. → Proporción." },
+    { id: "B", desc: "Personas de 0-15 años / personas de 65 o más años", type: "Razon", explanation: "¿Los jóvenes están dentro de los mayores? No, son grupos distintos que no se solapan. Es como comparar manzanas con naranjas → Razón." },
+    { id: "C", desc: "Muertes registradas en un año / población media del año", type: "Tasa", explanation: "Defunciones (evento que ocurre = flujo) ÷ población MEDIA (stock medio). Mide la intensidad de la mortalidad. Es la TBM → Tasa." },
+    { id: "D", desc: "Hombres / mujeres", type: "Razon", explanation: "¿Un hombre es una mujer? No. Dos grupos disjuntos. El numerador no cabe dentro del denominador → Razón (de masculinidad)." },
+    { id: "E", desc: "Televisores / teléfonos", type: "Razon", explanation: "¿Un televisor es un teléfono? No. Objetos de naturaleza completamente distinta → Razón." },
+    { id: "F", desc: "Teléfonos fijos / teléfonos de todo tipo", type: "Proporción", explanation: "¿Los fijos están dentro de «todos los teléfonos»? Sí, son un trozo de la tarta. Ambos stocks → Proporción." },
+    { id: "G", desc: "Coches matriculados durante un año / parque medio de coches", type: "Tasa", explanation: "Matriculaciones (flujo, evento durante el año) ÷ parque medio (stock medio). Es el «velocímetro» de la renovación → Tasa." },
+    { id: "H", desc: "Personas que llegan vivas a los 40 / personas que llegaron vivas a los 30", type: "Probabilidad", explanation: "Sigues al MISMO grupo desde los 30 (stock inicial) y miras cuántos sobreviven a los 40. Es seguimiento de cohorte → Probabilidad de supervivencia \u2081\u2080p\u2083\u2080." },
+    { id: "I", desc: "Gen. 1920: fallecidos antes de 80 / nacimientos iniciales", type: "Probabilidad", explanation: "Partes de los nacidos en 1920 (stock inicial de la generación) y cuentas cuántos mueren antes de 80. Seguimiento longitudinal → Probabilidad \u2088\u2080q\u2080." },
+    { id: "J", desc: "Nacimientos femeninos / total de nacimientos (en un año)", type: "Proporción", explanation: "¿Los nacimientos femeninos están dentro del total? Sí. ¿Ambos son flujos del mismo período? Sí. Parte del todo, sin seguimiento temporal → Proporción." },
+    { id: "K", desc: "Mujeres divorciadas / mujeres que empezaron casadas (en un año)", type: "Probabilidad", explanation: "Partes de las casadas al inicio del año (stock INICIAL) y mides cuántas se divorcian. Es el riesgo de divorcio para ese grupo de partida → Probabilidad." },
+    { id: "L", desc: "Coches matriculados / total de vehículos matriculados", type: "Proporción", explanation: "¿Los coches están dentro de «todos los vehículos»? Sí. Ambos flujos del mismo período. La parte está dentro del todo → Proporción." },
+    { id: "M", desc: "Personas en paro / personas en edad de trabajar", type: "Proporción", explanation: "¿Los parados en edad de trabajar están dentro de las personas en edad de trabajar? Sí. Ambos stocks. ¡Ojo! Se llama «tasa de paro» pero es Proporción." },
+    { id: "N", desc: "Sillas / mesas", type: "Razon", explanation: "¿Una silla es una mesa? No. Cosas de naturaleza distinta. El numerador no cabe en el denominador → Razón." },
+    { id: "N2", desc: "Personas que obtienen el carnet / personas que se presentan al examen", type: "Probabilidad", explanation: "Partes del grupo que se presenta (stock inicial = los que entran al examen) y mides cuántos aprueban. Es el riesgo/oportunidad de éxito → Probabilidad." },
+    { id: "O", desc: "Conciertos de rock / conciertos de jazz", type: "Razon", explanation: "¿Un concierto de rock es de jazz? No. Categorías distintas que no se solapan → Razón." },
+    { id: "P", desc: "Personas que fallecen / personas vivas al empezar el año", type: "Probabilidad", explanation: "Defunciones (flujo) ÷ vivos al 1 de enero (stock INICIAL, no medio). Mides el riesgo de morir ese año para el grupo que empezó vivo → Probabilidad q\u2093. Compara con C: ahí usa población MEDIA." },
+    { id: "Q", desc: "Nacimientos durante un año / población media del año", type: "Tasa", explanation: "Nacimientos (flujo) ÷ población MEDIA (stock medio). El velocímetro de la natalidad. Es la TBN → Tasa." },
+    { id: "R", desc: "Personas de 40 años con estudios superiores / todas las personas de 40 años", type: "Proporción", explanation: "¿Los de 40 con estudios están dentro de todos los de 40? Sí. Ambos stocks, mismo instante → Proporción." },
+    { id: "S", desc: "Mujeres / población total", type: "Proporción", explanation: "¿Las mujeres están dentro de la población total? Sí. Ambos stocks, misma foto → Proporción (de feminidad)." },
   ];
 
   const colorMap: Record<string, string> = {
@@ -1164,28 +1164,236 @@ function Ejercicio4() {
         </CardHeader>
         <CardContent>
           <p>
-            De los siguientes indicadores indique cuales corresponden a{" "}
-            <strong>razónes</strong>, <strong>tasas</strong>,{" "}
+            De los siguientes indicadores indique cuáles corresponden a{" "}
+            <strong>razones</strong>, <strong>tasas</strong>,{" "}
             <strong>proporciones</strong> y <strong>probabilidades</strong>.
           </p>
         </CardContent>
       </Card>
 
+      {/* Guía de clasificación — Método Feynman */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Antes de resolver: ¿cómo distinguirlos?</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-5">
+          <p className="text-sm text-muted-foreground">
+            Te dan un cociente A/B y tienes que clasificarlo. Parece difícil,
+            pero solo necesitas hacerte <strong>tres preguntas</strong>.
+            Primero, entiende cada tipo con ejemplos cotidianos:
+          </p>
+
+          {/* 4 concept cards */}
+          <div className="grid gap-3">
+            {/* RAZÓN */}
+            <div className="rounded-lg border-l-4 border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 p-4 space-y-2">
+              <div className="flex items-center gap-2">
+                <Badge className={colorMap.Razon}>Razón</Badge>
+                <span className="text-sm font-semibold">«Comparar manzanas con naranjas»</span>
+              </div>
+              <p className="text-sm">
+                En tu clase hay 18 chicos y 12 chicas.
+                Si calculas chicos ÷ chicas = 18/12 = 1,5.
+                ¿Los chicos son chicas? <strong>No</strong>. Son grupos
+                completamente separados. Eso es una razón.
+              </p>
+              <p className="text-sm">
+                Otro ejemplo: televisores/teléfonos. Un televisor nunca
+                será un teléfono. Puede dar <strong>cualquier valor</strong>{" "}
+                (0,5; 1; 3; 100...), no está limitado a 0-1.
+              </p>
+              <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">
+                Pregunta clave: ¿Puedo meter el numerador DENTRO del denominador?
+                Si NO → Razón.
+              </p>
+            </div>
+
+            {/* PROPORCIÓN */}
+            <div className="rounded-lg border-l-4 border-green-500 bg-green-50/50 dark:bg-green-950/30 p-4 space-y-2">
+              <div className="flex items-center gap-2">
+                <Badge className={colorMap["Proporción"]}>Proporción</Badge>
+                <span className="text-sm font-semibold">«Una porción de la tarta»</span>
+              </div>
+              <p className="text-sm">
+                Una pizza tiene 8 porciones y te comes 3.
+                Tu parte es 3/8 = 0,375. Tus 3 trozos{" "}
+                <strong>eran parte de los 8</strong>. El numerador siempre
+                está dentro del denominador.
+              </p>
+              <p className="text-sm">
+                Ambos deben ser del <strong>mismo tipo</strong>{" "}
+                (stock/stock o flujo/flujo) y de la{" "}
+                <strong>misma foto instantánea</strong> (mismo instante o período).
+                Siempre sale entre 0 y 1.
+              </p>
+              <p className="text-xs font-semibold text-green-700 dark:text-green-300">
+                Pregunta clave: ¿El numerador es un trozo del denominador,
+                sin seguimiento temporal? → Proporción.
+              </p>
+            </div>
+
+            {/* TASA */}
+            <div className="rounded-lg border-l-4 border-amber-500 bg-amber-50/50 dark:bg-amber-950/30 p-4 space-y-2">
+              <div className="flex items-center gap-2">
+                <Badge className={colorMap.Tasa}>Tasa</Badge>
+                <span className="text-sm font-semibold">«El velocímetro de un fenómeno»</span>
+              </div>
+              <p className="text-sm">
+                Un velocímetro mide km recorridos (lo que OCURRE) entre
+                tiempo (exposición). Una tasa mide{" "}
+                <strong>eventos que ocurren</strong> (flujo: nacimientos,
+                defunciones) entre la <strong>población MEDIA</strong>{" "}
+                expuesta durante ese período.
+              </p>
+              <p className="text-sm">
+                Ejemplo: 5.000 nacimientos al año ÷ 500.000 habitantes de
+                media = 10‰. Mide la <strong>intensidad</strong> del
+                fenómeno. Tiene dimensión temporal (eventos por año).
+              </p>
+              <p className="text-xs font-semibold text-amber-700 dark:text-amber-300">
+                Pregunta clave: ¿Flujo (evento) ÷ stock MEDIO? → Tasa.
+              </p>
+            </div>
+
+            {/* PROBABILIDAD */}
+            <div className="rounded-lg border-l-4 border-purple-500 bg-purple-50/50 dark:bg-purple-950/30 p-4 space-y-2">
+              <div className="flex items-center gap-2">
+                <Badge className={colorMap.Probabilidad}>Probabilidad</Badge>
+                <span className="text-sm font-semibold">«Un reality show: ¿quién sobrevive?»</span>
+              </div>
+              <p className="text-sm">
+                En un reality entran 100 concursantes el día 1{" "}
+                (stock <strong>INICIAL</strong>). Al final de la semana quedan 72.
+                Probabilidad de sobrevivir = 72/100 = 0,72.
+                Lo clave: <strong>sigues al MISMO grupo desde el INICIO</strong>.
+              </p>
+              <p className="text-sm">
+                En demografía: 1.000 personas vivas el 1 de enero.
+                Al final del año, 8 han fallecido.
+                Probabilidad de morir = 8/1.000 = 0,008.
+                Es el <strong>riesgo</strong> para ese colectivo de partida.
+              </p>
+              <p className="text-xs font-semibold text-purple-700 dark:text-purple-300">
+                Pregunta clave: ¿Resultado ÷ stock INICIAL del grupo
+                de partida? → Probabilidad.
+              </p>
+            </div>
+          </div>
+
+          {/* Diferencia clave TASA vs PROBABILIDAD */}
+          <div className="rounded-lg border-2 border-dashed border-muted-foreground/30 p-4 space-y-2">
+            <h4 className="font-semibold text-sm">La diferencia que más confunde: Tasa vs Probabilidad</h4>
+            <p className="text-sm">
+              Ambas tienen un <strong>flujo</strong> en el numerador y un{" "}
+              <strong>stock</strong> en el denominador.
+              La única diferencia es <strong>qué stock</strong> usas:
+            </p>
+            <div className="grid grid-cols-2 gap-3 text-sm mt-2">
+              <div className="rounded border p-3 bg-amber-50/50 dark:bg-amber-950/20">
+                <Badge className={colorMap.Tasa}>Tasa</Badge>
+                <p className="mt-1">Defunciones ÷ población <strong>MEDIA</strong></p>
+                <p className="text-xs text-muted-foreground mt-1">Perspectiva transversal (foto media del período)</p>
+              </div>
+              <div className="rounded border p-3 bg-purple-50/50 dark:bg-purple-950/20">
+                <Badge className={colorMap.Probabilidad}>Probabilidad</Badge>
+                <p className="mt-1">Defunciones ÷ población <strong>INICIAL</strong></p>
+                <p className="text-xs text-muted-foreground mt-1">Perspectiva longitudinal (sigues al grupo)</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Decision tree */}
+          <div className="rounded-lg border p-4 bg-muted/30 space-y-3">
+            <h4 className="font-semibold">Árbol de decisión (memorízalo)</h4>
+            <div className="space-y-3 text-sm">
+              <div className="rounded border p-3 bg-background">
+                <p className="font-semibold">Paso 1: ¿El numerador forma PARTE del denominador?</p>
+                <div className="mt-2 ml-4 space-y-1">
+                  <p>
+                    <span className="font-bold text-red-500 dark:text-red-400">NO</span>{" → "}
+                    <Badge className={`ml-1 ${colorMap.Razon}`}>Razón</Badge>
+                    <span className="text-muted-foreground ml-2">(grupos distintos o cosas diferentes)</span>
+                  </p>
+                  <p>
+                    <span className="font-bold text-green-500 dark:text-green-400">SÍ</span>
+                    {" → Sigue al Paso 2 ↓"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded border p-3 bg-background">
+                <p className="font-semibold">Paso 2: ¿Hay un FLUJO (evento) dividido entre un STOCK (población)?</p>
+                <div className="mt-2 ml-4 space-y-1">
+                  <p>
+                    <span className="font-bold text-red-500 dark:text-red-400">NO</span>{" → "}
+                    <Badge className={`ml-1 ${colorMap["Proporción"]}`}>Proporción</Badge>
+                    <span className="text-muted-foreground ml-2">(ambos stocks o ambos flujos = parte del todo)</span>
+                  </p>
+                  <p>
+                    <span className="font-bold text-green-500 dark:text-green-400">SÍ</span>
+                    {" → Sigue al Paso 3 ↓"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded border p-3 bg-background">
+                <p className="font-semibold">Paso 3: ¿El stock del denominador es MEDIO o INICIAL?</p>
+                <div className="mt-2 ml-4 space-y-1">
+                  <p>
+                    <span className="font-bold text-amber-500 dark:text-amber-400">MEDIO</span>{" → "}
+                    <Badge className={`ml-1 ${colorMap.Tasa}`}>Tasa</Badge>
+                    <span className="text-muted-foreground ml-2">(promedio del período)</span>
+                  </p>
+                  <p>
+                    <span className="font-bold text-purple-500 dark:text-purple-400">INICIAL</span>{" → "}
+                    <Badge className={`ml-1 ${colorMap.Probabilidad}`}>Probabilidad</Badge>
+                    <span className="text-muted-foreground ml-2">(grupo de partida, perspectiva de cohorte)</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Common traps */}
+          <div className="rounded-lg border border-red-200 dark:border-red-800 p-4 bg-red-50/50 dark:bg-red-950/20 space-y-3">
+            <h4 className="font-semibold flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4 text-red-500" />
+              Trampas de examen
+            </h4>
+            <ul className="text-sm space-y-3">
+              <li>
+                <strong>La «tasa de paro» es proporción:</strong>{" "}
+                Parados/activos. Ambos son stocks en el mismo momento. No hay
+                ningún flujo. El nombre oficial engaña, pero en el examen
+                debes poner <Badge className={`text-xs ${colorMap["Proporción"]}`}>Proporción</Badge>.
+              </li>
+              <li>
+                <strong>Tasa vs Probabilidad — la trampa clásica:</strong>{" "}
+                «Defunciones/población» puede ser cualquiera de las dos.
+                Fíjate en si dice{" "}
+                <em>«población media»</em> o <em>«de mitad del año»</em>{" "}
+                → <Badge className={`text-xs ${colorMap.Tasa}`}>Tasa</Badge>.
+                Si dice <em>«al empezar el año»</em> o{" "}
+                <em>«vivos a 1 de enero»</em>{" "}
+                → <Badge className={`text-xs ${colorMap.Probabilidad}`}>Probabilidad</Badge>.
+              </li>
+              <li>
+                <strong>Flujo/Flujo = Proporción, no tasa:</strong>{" "}
+                Nacimientos femeninos / total nacimientos. Ambos son flujos del
+                mismo período. Como la parte está dentro del todo{" "}
+                → <Badge className={`text-xs ${colorMap["Proporción"]}`}>Proporción</Badge>.
+              </li>
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Solución */}
       <Card>
         <CardHeader>
           <CardTitle>Solución</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2 mb-4">
-            <h4 className="font-semibold">Criterios de clasificación:</h4>
-            <ul className="text-sm list-disc list-inside space-y-1">
-              <li><strong>Razon:</strong> Cociente entre dos magnitudes de naturaleza distinta o de grupos que no se solapan. El numerador NO forma parte del denominador.</li>
-              <li><strong>Tasa:</strong> Flujo dividido entre stock medio (población media). Tiene dimension temporal (eventos por unidad de tiempo y exposición).</li>
-              <li><strong>Proporción:</strong> Parte de un todo. El numerador es subconjunto del denominador. Valor entre 0 y 1. Ambos son del mismo tipo (stock/stock o flujo/flujo).</li>
-              <li><strong>Probabilidad:</strong> Riesgo de que un suceso ocurra a un colectivo inicial. Flujo (o resultado) dividido entre el stock INICIAL del colectivo expuesto (perspectiva longitudinal/cohorte).</li>
-            </ul>
-          </div>
-
           <div className="space-y-3">
             {indicators.map((ind) => (
               <div
@@ -1195,7 +1403,7 @@ function Ejercicio4() {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-lg min-w-[2rem]">
-                      {ind.id === "N2" ? "\u00d1" : ind.id}
+                      {ind.id === "N2" ? "Ñ" : ind.id}
                     </span>
                     <span className="text-sm">{ind.desc}</span>
                   </div>
@@ -1214,7 +1422,7 @@ function Ejercicio4() {
             <h4 className="font-semibold mb-3">Resumen</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
               <div>
-                <Badge className={colorMap.Razon}>Razon</Badge>
+                <Badge className={colorMap.Razon}>Razón</Badge>
                 <p className="mt-1 font-mono text-xs">B, D, E, N, O</p>
               </div>
               <div>
@@ -1222,12 +1430,12 @@ function Ejercicio4() {
                 <p className="mt-1 font-mono text-xs">C, G, Q</p>
               </div>
               <div>
-                <Badge className={colorMap.Proporción}>Proporción</Badge>
+                <Badge className={colorMap["Proporción"]}>Proporción</Badge>
                 <p className="mt-1 font-mono text-xs">A, F, J, L, M, R, S</p>
               </div>
               <div>
                 <Badge className={colorMap.Probabilidad}>Probabilidad</Badge>
-                <p className="mt-1 font-mono text-xs">H, I, K, &Ntilde;, P</p>
+                <p className="mt-1 font-mono text-xs">H, I, K, Ñ, P</p>
               </div>
             </div>
           </div>
@@ -1249,23 +1457,23 @@ const exercises: Record<string, {
   nextTopicHref: string;
 }> = {
   "1": {
-    title: "Ejercicio 1: Interpretaci\u00f3n de l\u00edneas y \u00e1reas en Lexis",
+    title: "Ejercicio 1: Interpretación de líneas y áreas en Lexis",
     component: Ejercicio1,
-    question: "Interpretar l\u00edneas, superficies y segmentos en el diagrama de Lexis",
-    takeaway: "Ahora sabes distinguir los elementos b\u00e1sicos del diagrama de Lexis: l\u00edneas de vida, superficies y segmentos de stock.",
+    question: "Interpretar líneas, superficies y segmentos en el diagrama de Lexis",
+    takeaway: "Ahora sabes distinguir los elementos básicos del diagrama de Lexis: líneas de vida, superficies y segmentos de stock.",
     nextTopic: "Representar stocks y flujos",
     nextTopicHref: "/tema-2/ejercicios/t2-1/2",
   },
   "2": {
-    title: "Ejercicio 2: Representaci\u00f3n de stocks y flujos",
+    title: "Ejercicio 2: Representación de stocks y flujos",
     component: Ejercicio2,
-    question: "Representar stocks y flujos demogr\u00e1ficos en el plano de Lexis",
-    takeaway: "Ya puedes identificar y representar stocks (poblaci\u00f3n en un instante) y flujos (eventos en un periodo) sobre el diagrama.",
+    question: "Representar stocks y flujos demográficos en el plano de Lexis",
+    takeaway: "Ya puedes identificar y representar stocks (población en un instante) y flujos (eventos en un periodo) sobre el diagrama.",
     nextTopic: "Construir un diagrama completo",
     nextTopicHref: "/tema-2/ejercicios/t2-1/3",
   },
   "3": {
-    title: "Ejercicio 3: Construcci\u00f3n de diagrama con datos reales",
+    title: "Ejercicio 3: Construcción de diagrama con datos reales",
     component: Ejercicio3,
     question: "Construir un diagrama de Lexis completo con datos reales de nacimientos y defunciones",
     takeaway: "Has aprendido a construir un diagrama de Lexis desde cero con datos reales, integrando nacimientos y defunciones.",
@@ -1273,10 +1481,10 @@ const exercises: Record<string, {
     nextTopicHref: "/tema-2/ejercicios/t2-1/4",
   },
   "4": {
-    title: "Ejercicio 4: Clasificaci\u00f3n de indicadores demogr\u00e1ficos",
+    title: "Ejercicio 4: Clasificación de indicadores demográficos",
     component: Ejercicio4,
-    question: "Clasificar indicadores demogr\u00e1ficos en razones, tasas, proporciones y probabilidades",
-    takeaway: "Ya dominas la clasificaci\u00f3n de indicadores demogr\u00e1ficos, una habilidad clave para el an\u00e1lisis actuarial.",
+    question: "Clasificar indicadores demográficos en razones, tasas, proporciones y probabilidades",
+    takeaway: "Ya dominas la clasificación de indicadores demográficos, una habilidad clave para el análisis actuarial.",
     nextTopic: "Hoja T2-2: Lexis avanzado",
     nextTopicHref: "/tema-2/ejercicios/t2-2",
   },

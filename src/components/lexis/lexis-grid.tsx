@@ -10,6 +10,8 @@ interface LexisGridProps {
   cellSize?: number;
   gridColor?: string;
   labelColor?: string;
+  /** Extra space below grid for births row — shifts year labels down */
+  birthsRowHeight?: number;
 }
 
 const PADDING_LEFT = 40;
@@ -24,6 +26,7 @@ export function LexisGrid({
   cellSize = 60,
   gridColor,
   labelColor,
+  birthsRowHeight = 0,
 }: LexisGridProps) {
   const numYears = endYear - startYear;
   const numAges = maxAge - minAge;
@@ -72,7 +75,7 @@ export function LexisGrid({
   // Year labels on the X axis (bottom)
   for (let i = 0; i <= numYears; i++) {
     const x = PADDING_LEFT + i * cellSize;
-    const y = PADDING_TOP + gridHeight + PADDING_BOTTOM - 4;
+    const y = PADDING_TOP + gridHeight + birthsRowHeight + PADDING_BOTTOM - 4;
     yearLabels.push(
       <text
         key={`yl-${i}`}

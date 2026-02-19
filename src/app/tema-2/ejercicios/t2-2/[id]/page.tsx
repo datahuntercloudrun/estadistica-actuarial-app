@@ -343,8 +343,8 @@ function Ejercicio1() {
     {
       label: "g",
       title: "Nacimientos de los años 1984, 1987-1988 y 1992",
-      type: "Flujo - Segmentos sobre el eje de edad 0",
-      explanation: "Los nacimientos se representan como segmentos horizontales sobre la linea de edad 0. Cada segmento cubre el año (o años) en cuestion.",
+      type: "Stock - Segmentos sobre el eje de edad 0",
+      explanation: "Los efectivos iniciales de cada generación se representan como segmentos horizontales sobre edad 0. En Lexis, las líneas siempre son stocks (recuentos de personas).",
       config: configG,
       legend: [
         { color: "#3b82f6", label: "N(1984)", type: "line" as const },
@@ -485,7 +485,7 @@ function Ejercicio1() {
    ──────────────────────────────────────────── */
 function Ejercicio2() {
   /* Data:
-     - 2003 nacieron 50.000 → flujo (nacimientos)
+     - 2003 nacieron 50.000 → stock (efectivos iniciales gen. 2003)
      - 2003: 300 fallecimientos nacidos en 2003, 0 años → flujo (triangulo inf at (2003,0))
      - 2003: 50 fallecimientos nacidos en 2002, 0 años → flujo (triangulo sup at (2003,0))
      - Población 0 cumplidos a 1.01.2004 = 49.700 → stock (vertical line at 2004, age 0-1)
@@ -538,7 +538,7 @@ function Ejercicio2() {
   ];
 
   const dimensions = [
-    { dim: "Durante 2003 nacieron 50.000 individuos", tipo: "Flujo", nota: "Nacimientos: eventos que ocurren a lo largo de un período (ano 2003). Se representan como segmento sobre la base (edad 0)." },
+    { dim: "Durante 2003 nacieron 50.000 individuos", tipo: "Stock", nota: "Efectivos iniciales de la generación 2003. En Lexis se representan como segmento horizontal sobre edad 0 (línea = stock)." },
     { dim: "300 fallecimientos (nacidos 2003, 0 años, en 2003)", tipo: "Flujo", nota: "Defunciones: triangulo inferior de (2003, edad 0). Cohort=2003, age=0, year=2003 → 2003+0=2003 → tri. inferior." },
     { dim: "50 fallecimientos (nacidos 2002, 0 años, en 2003)", tipo: "Flujo", nota: "Defunciones: triangulo superior de (2003, edad 0). Cohort=2002, age=0, year=2003 → 2002+0+1=2003 → tri. superior." },
     { dim: "Población 0 cumplidos a 1.01.2004 = 49.700", tipo: "Stock", nota: "Recuento en un instante concreto (1 de enero). Linea vertical en 2004, entre edades 0 y 1." },

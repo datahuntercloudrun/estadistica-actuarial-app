@@ -42,6 +42,12 @@ export interface LexisAnnotation {
   color?: string;
 }
 
+export interface LexisBirth {
+  year: number;
+  value: string;
+  color?: string;
+}
+
 export interface LexisConfig {
   startYear: number;
   endYear: number;
@@ -52,6 +58,7 @@ export interface LexisConfig {
   surfaces?: LexisSurface[];
   stockLines?: LexisStockLine[];
   annotations?: LexisAnnotation[];
+  births?: LexisBirth[];
   showGrid?: boolean;
   showLifelines?: boolean;
 }

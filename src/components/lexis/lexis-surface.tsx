@@ -155,7 +155,7 @@ export function LexisSurfaceLayer({
                 dominantBaseline="central"
                 fontSize={12}
                 fontWeight="bold"
-                fill="#333"
+                fill="#9ca3af"
               >
                 {surface.label}
               </text>

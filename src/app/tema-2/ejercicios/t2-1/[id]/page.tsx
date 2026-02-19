@@ -345,14 +345,14 @@ function Ejercicio2() {
           {/* b) */}
           <div className="space-y-3">
             <h4 className="font-semibold text-green-700">
-              b) Nacimientos de 1901 (efectivos iniciales) → Segmento en eje horizontal (Flujo)
+              b) Nacimientos de 1901 (efectivos iniciales) → Segmento horizontal (Stock)
             </h4>
             <p className="text-sm">
-              Los <strong>efectivos iniciales</strong> de la generación 1901 son los{" "}
-              <strong>nacimientos ocurridos a lo largo del año 1901</strong>. Los nacimientos
-              son un <strong>flujo</strong> (acontecimientos que se acumulan durante un periodo,
-              no en un instante). Se representan como un segmento horizontal sobre el eje de
-              edad 0, desde el 1/01/1901 hasta el 31/12/1901.
+              Los <strong>efectivos iniciales</strong> de la generación 1901 son los
+              nacimientos ocurridos a lo largo de 1901. En Lexis, las{" "}
+              <strong>líneas siempre representan stocks</strong> (recuentos de personas).
+              Este segmento horizontal en edad 0, de 1/01/1901 a 31/12/1901,
+              cuenta las personas que nacen (alcanzan edad 0) durante ese año.
             </p>
             <div className="max-w-xl mx-auto">
               <LexisDiagram config={configB} />
@@ -728,59 +728,59 @@ function Ejercicio3() {
       { cohort: 2000, color: "#8b5cf6" },
     ],
     surfaces: [],
+    births: [
+      { year: 1996, value: "2.164", color: "#3b82f6" },
+      { year: 1997, value: "2.120", color: "#22c55e" },
+      { year: 1998, value: "2.037", color: "#f59e0b" },
+      { year: 1999, value: "2.170", color: "#ef4444" },
+      { year: 2000, value: "2.209", color: "#8b5cf6" },
+    ],
     annotations: [
-      // Births on the base
-      { x: 1996.5, y: -0.3, text: "2164", fontSize: 9, color: "#3b82f6" },
-      { x: 1997.5, y: -0.3, text: "2120", fontSize: 9, color: "#22c55e" },
-      { x: 1998.5, y: -0.3, text: "2037", fontSize: 9, color: "#f59e0b" },
-      { x: 1999.5, y: -0.3, text: "2170", fontSize: 9, color: "#ef4444" },
-      { x: 2000.5, y: -0.3, text: "2209", fontSize: 9, color: "#8b5cf6" },
-
       // Triángulo inferior: centroide en (año+0.67, edad+0.33)
       // Triángulo superior: centroide en (año+0.33, edad+0.67)
 
       // Lower triangles (gen 1996): año=c+x, edad=x
-      { x: 1996.67, y: 0.33, text: "21", fontSize: 10, color: "#333" },
-      { x: 1997.67, y: 1.33, text: "1", fontSize: 10, color: "#333" },
-      { x: 1998.67, y: 2.33, text: "1", fontSize: 10, color: "#333" },
-      { x: 1999.67, y: 3.33, text: "0", fontSize: 10, color: "#333" },
-      { x: 2000.67, y: 4.33, text: "0", fontSize: 10, color: "#333" },
+      { x: 1996.67, y: 0.33, text: "21", fontSize: 10, color: "#9ca3af" },
+      { x: 1997.67, y: 1.33, text: "1", fontSize: 10, color: "#9ca3af" },
+      { x: 1998.67, y: 2.33, text: "1", fontSize: 10, color: "#9ca3af" },
+      { x: 1999.67, y: 3.33, text: "0", fontSize: 10, color: "#9ca3af" },
+      { x: 2000.67, y: 4.33, text: "0", fontSize: 10, color: "#9ca3af" },
 
       // Upper triangles (gen 1996): año=c+x+1, edad=x
-      { x: 1997.33, y: 0.67, text: "1", fontSize: 10, color: "#333" },
-      { x: 1998.33, y: 1.67, text: "0", fontSize: 10, color: "#333" },
-      { x: 1999.33, y: 2.67, text: "1", fontSize: 10, color: "#333" },
-      { x: 2000.33, y: 3.67, text: "0", fontSize: 10, color: "#333" },
+      { x: 1997.33, y: 0.67, text: "1", fontSize: 10, color: "#9ca3af" },
+      { x: 1998.33, y: 1.67, text: "0", fontSize: 10, color: "#9ca3af" },
+      { x: 1999.33, y: 2.67, text: "1", fontSize: 10, color: "#9ca3af" },
+      { x: 2000.33, y: 3.67, text: "0", fontSize: 10, color: "#9ca3af" },
 
       // Lower triangles (gen 1997)
-      { x: 1997.67, y: 0.33, text: "36", fontSize: 10, color: "#333" },
-      { x: 1998.67, y: 1.33, text: "3", fontSize: 10, color: "#333" },
-      { x: 1999.67, y: 2.33, text: "1", fontSize: 10, color: "#333" },
-      { x: 2000.67, y: 3.33, text: "1", fontSize: 10, color: "#333" },
+      { x: 1997.67, y: 0.33, text: "36", fontSize: 10, color: "#9ca3af" },
+      { x: 1998.67, y: 1.33, text: "3", fontSize: 10, color: "#9ca3af" },
+      { x: 1999.67, y: 2.33, text: "1", fontSize: 10, color: "#9ca3af" },
+      { x: 2000.67, y: 3.33, text: "1", fontSize: 10, color: "#9ca3af" },
 
       // Upper triangles (gen 1997)
-      { x: 1998.33, y: 0.67, text: "7", fontSize: 10, color: "#333" },
-      { x: 1999.33, y: 1.67, text: "3", fontSize: 10, color: "#333" },
-      { x: 2000.33, y: 2.67, text: "1", fontSize: 10, color: "#333" },
+      { x: 1998.33, y: 0.67, text: "7", fontSize: 10, color: "#9ca3af" },
+      { x: 1999.33, y: 1.67, text: "3", fontSize: 10, color: "#9ca3af" },
+      { x: 2000.33, y: 2.67, text: "1", fontSize: 10, color: "#9ca3af" },
 
       // Lower triangles (gen 1998)
-      { x: 1998.67, y: 0.33, text: "23", fontSize: 10, color: "#333" },
-      { x: 1999.67, y: 1.33, text: "1", fontSize: 10, color: "#333" },
-      { x: 2000.67, y: 2.33, text: "0", fontSize: 10, color: "#333" },
+      { x: 1998.67, y: 0.33, text: "23", fontSize: 10, color: "#9ca3af" },
+      { x: 1999.67, y: 1.33, text: "1", fontSize: 10, color: "#9ca3af" },
+      { x: 2000.67, y: 2.33, text: "0", fontSize: 10, color: "#9ca3af" },
 
       // Upper triangles (gen 1998)
-      { x: 1999.33, y: 0.67, text: "2", fontSize: 10, color: "#333" },
-      { x: 2000.33, y: 1.67, text: "2", fontSize: 10, color: "#333" },
+      { x: 1999.33, y: 0.67, text: "2", fontSize: 10, color: "#9ca3af" },
+      { x: 2000.33, y: 1.67, text: "2", fontSize: 10, color: "#9ca3af" },
 
       // Lower triangles (gen 1999)
-      { x: 1999.67, y: 0.33, text: "20", fontSize: 10, color: "#333" },
-      { x: 2000.67, y: 1.33, text: "1", fontSize: 10, color: "#333" },
+      { x: 1999.67, y: 0.33, text: "20", fontSize: 10, color: "#9ca3af" },
+      { x: 2000.67, y: 1.33, text: "1", fontSize: 10, color: "#9ca3af" },
 
       // Upper triangles (gen 1999)
-      { x: 2000.33, y: 0.67, text: "4", fontSize: 10, color: "#333" },
+      { x: 2000.33, y: 0.67, text: "4", fontSize: 10, color: "#9ca3af" },
 
       // Lower triangle (gen 2000)
-      { x: 2000.67, y: 0.33, text: "23", fontSize: 10, color: "#333" },
+      { x: 2000.67, y: 0.33, text: "23", fontSize: 10, color: "#9ca3af" },
     ],
   };
 

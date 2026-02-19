@@ -19,6 +19,8 @@ const PADDING_BOTTOM = 40;
 const PADDING_TOP = 10;
 const PADDING_RIGHT = 10;
 
+const BIRTHS_ROW_HEIGHT = 24;
+
 export function LexisDiagram({
   config,
   width = "100%",
@@ -35,6 +37,7 @@ export function LexisDiagram({
     surfaces,
     stockLines,
     annotations,
+    births,
     showGrid = true,
     showLifelines = true,
   } = config;
@@ -44,14 +47,22 @@ export function LexisDiagram({
   const gridWidth = numYears * cellSize;
   const gridHeight = numAges * cellSize;
 
+  const hasBirths = births && births.length > 0;
+  const birthsExtra = hasBirths ? BIRTHS_ROW_HEIGHT : 0;
+
   const viewBoxWidth = PADDING_LEFT + gridWidth + PADDING_RIGHT;
-  const viewBoxHeight = PADDING_TOP + gridHeight + PADDING_BOTTOM;
+  const viewBoxHeight = PADDING_TOP + gridHeight + birthsExtra + PADDING_BOTTOM;
 
   /** Convert demographic (year, age) to SVG coordinates — used for annotations */
   const toSvgX = (year: number): number =>
     PADDING_LEFT + (year - startYear) * cellSize;
   const toSvgY = (age: number): number =>
     PADDING_TOP + (maxAge - age) * cellSize;
+
+  /* Births row: sits between grid bottom (age 0) and year labels */
+  const gridBottomY = PADDING_TOP + gridHeight;
+  const birthsRowTopY = gridBottomY;
+  const birthsRowBottomY = gridBottomY + BIRTHS_ROW_HEIGHT;
 
   return (
     <svg
@@ -63,7 +74,7 @@ export function LexisDiagram({
       role="img"
       aria-label="Diagrama de Lexis"
     >
-      {/* Grid */}
+      {/* Grid — pass birthsRowHeight so year labels shift down */}
       {showGrid && (
         <LexisGrid
           startYear={startYear}
@@ -71,6 +82,7 @@ export function LexisDiagram({
           minAge={minAge}
           maxAge={maxAge}
           cellSize={cellSize}
+          birthsRowHeight={birthsExtra}
         />
       )}
 
@@ -124,6 +136,71 @@ export function LexisDiagram({
             {ann.text}
           </text>
         ))}
+
+      {/* Births row — between grid bottom and year labels, like textbook */}
+      {hasBirths && (
+        <g>
+          {/* Background fill */}
+          <rect
+            x={PADDING_LEFT}
+            y={birthsRowTopY}
+            width={gridWidth}
+            height={BIRTHS_ROW_HEIGHT}
+            fill="#ef4444"
+            opacity={0.1}
+          />
+          {/* Border lines */}
+          <line
+            x1={PADDING_LEFT}
+            y1={birthsRowTopY}
+            x2={PADDING_LEFT + gridWidth}
+            y2={birthsRowTopY}
+            stroke="#f87171"
+            strokeWidth={1.5}
+          />
+          <line
+            x1={PADDING_LEFT}
+            y1={birthsRowBottomY}
+            x2={PADDING_LEFT + gridWidth}
+            y2={birthsRowBottomY}
+            stroke="#f87171"
+            strokeWidth={1.5}
+          />
+
+          {/* "Nacidos" label */}
+          <text
+            x={PADDING_LEFT - 4}
+            y={birthsRowTopY + BIRTHS_ROW_HEIGHT / 2}
+            fontSize={9}
+            fill="#f87171"
+            textAnchor="end"
+            dominantBaseline="central"
+            fontWeight="600"
+          >
+            Nacidos
+          </text>
+
+          {/* Birth values — centered in each year column */}
+          {births!.map((b, idx) => {
+            const cx =
+              PADDING_LEFT + (b.year - startYear) * cellSize + cellSize / 2;
+            return (
+              <text
+                key={`birth-${idx}`}
+                x={cx}
+                y={birthsRowTopY + BIRTHS_ROW_HEIGHT / 2}
+                fontSize={10}
+                fill={b.color ?? "#ef4444"}
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontWeight="600"
+              >
+                {b.value}
+              </text>
+            );
+          })}
+        </g>
+      )}
     </svg>
   );
 }

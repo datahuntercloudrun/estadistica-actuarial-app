@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 import { LexisDiagram } from "@/components/lexis/lexis-diagram";
 import { LexisLegend } from "@/components/lexis/lexis-legend";
@@ -16,7 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { LexisConfig } from "@/types/lexis";
-import { BookOpen, ArrowLeft, ArrowRight, Lightbulb, AlertTriangle } from "lucide-react";
+import { BookOpen, ArrowLeft, ArrowRight, Lightbulb, AlertTriangle, CheckCircle2, XCircle, RotateCcw } from "lucide-react";
 
 /* ────────────────────────────────────────────
    Ejercicio 1 - Interpretación de líneas y areas
@@ -1149,12 +1150,36 @@ function Ejercicio4() {
     { id: "S", desc: "Mujeres / población total", type: "Proporción", explanation: "¿Las mujeres están dentro de la población total? Sí. Ambos stocks, misma foto → Proporción (de feminidad)." },
   ];
 
+  const typeLabels: Record<string, string> = {
+    Razon: "Razón",
+    Tasa: "Tasa",
+    Proporción: "Proporción",
+    Probabilidad: "Probabilidad",
+  };
+
   const colorMap: Record<string, string> = {
     Razon: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
     Tasa: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
     Proporción: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
     Probabilidad: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
   };
+
+  const options = ["Razon", "Proporción", "Tasa", "Probabilidad"] as const;
+
+  // answers: map from indicator id → user's chosen type (or null if unanswered)
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+
+  const handleAnswer = (indicatorId: string, chosen: string) => {
+    if (answers[indicatorId]) return; // already answered
+    setAnswers((prev) => ({ ...prev, [indicatorId]: chosen }));
+  };
+
+  const resetQuiz = () => setAnswers({});
+
+  const totalAnswered = Object.keys(answers).length;
+  const totalCorrect = indicators.filter(
+    (ind) => answers[ind.id] === ind.type
+  ).length;
 
   return (
     <div className="space-y-6">
@@ -1388,36 +1413,157 @@ function Ejercicio4() {
         </CardContent>
       </Card>
 
-      {/* Solución */}
+      {/* Quiz interactivo */}
       <Card>
         <CardHeader>
-          <CardTitle>Solución</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>Pon a prueba tu comprensión</CardTitle>
+            {totalAnswered > 0 && (
+              <button
+                onClick={resetQuiz}
+                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <RotateCcw className="h-4 w-4" />
+                Reiniciar
+              </button>
+            )}
+          </div>
+          {/* Progress bar */}
+          {totalAnswered > 0 && (
+            <div className="space-y-1.5 mt-2">
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>{totalAnswered} de {indicators.length} respondidos</span>
+                <span>{totalCorrect} correctos</span>
+              </div>
+              <div className="h-2 rounded-full bg-muted overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-green-500 transition-all duration-300"
+                  style={{ width: `${(totalCorrect / indicators.length) * 100}%` }}
+                />
+              </div>
+            </div>
+          )}
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-3">
-            {indicators.map((ind) => (
+        <CardContent className="space-y-3">
+          {indicators.map((ind) => {
+            const userAnswer = answers[ind.id];
+            const isAnswered = !!userAnswer;
+            const isCorrect = userAnswer === ind.type;
+
+            return (
               <div
                 key={ind.id}
-                className="flex flex-col gap-2 rounded-lg border p-3"
+                className={`rounded-lg border p-3 transition-colors ${
+                  isAnswered
+                    ? isCorrect
+                      ? "border-green-500/50 bg-green-50/30 dark:bg-green-950/20"
+                      : "border-red-500/50 bg-red-50/30 dark:bg-red-950/20"
+                    : ""
+                }`}
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-lg min-w-[2rem]">
-                      {ind.id === "N2" ? "Ñ" : ind.id}
-                    </span>
-                    <span className="text-sm">{ind.desc}</span>
-                  </div>
-                  <Badge className={`shrink-0 ${colorMap[ind.type]}`}>
-                    {ind.type}
-                  </Badge>
+                {/* Indicator description */}
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-bold text-lg min-w-[2rem]">
+                    {ind.id === "N2" ? "Ñ" : ind.id}
+                  </span>
+                  <span className="text-sm">{ind.desc}</span>
                 </div>
-                <p className="text-xs text-muted-foreground pl-10">
-                  {ind.explanation}
-                </p>
-              </div>
-            ))}
-          </div>
 
+                {/* Option buttons */}
+                <div className="flex flex-wrap gap-2 ml-10">
+                  {options.map((opt) => {
+                    const isThisCorrect = opt === ind.type;
+                    const isThisChosen = userAnswer === opt;
+
+                    let btnClass =
+                      "px-3 py-1 text-xs rounded-full border font-medium transition-all cursor-pointer ";
+
+                    if (!isAnswered) {
+                      // Unanswered: show neutral clickable buttons
+                      btnClass +=
+                        "border-border hover:border-foreground/40 hover:bg-muted/50";
+                    } else if (isThisCorrect) {
+                      // Always highlight the correct answer in green
+                      btnClass +=
+                        "border-green-500 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 dark:border-green-600";
+                    } else if (isThisChosen && !isThisCorrect) {
+                      // Wrong choice: red
+                      btnClass +=
+                        "border-red-500 bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 dark:border-red-600 line-through";
+                    } else {
+                      // Other options after answering: muted
+                      btnClass +=
+                        "border-transparent text-muted-foreground/40";
+                    }
+
+                    return (
+                      <button
+                        key={opt}
+                        onClick={() => handleAnswer(ind.id, opt)}
+                        disabled={isAnswered}
+                        className={btnClass}
+                      >
+                        {isAnswered && isThisCorrect && (
+                          <CheckCircle2 className="inline h-3 w-3 mr-1 -mt-0.5" />
+                        )}
+                        {isAnswered && isThisChosen && !isThisCorrect && (
+                          <XCircle className="inline h-3 w-3 mr-1 -mt-0.5" />
+                        )}
+                        {typeLabels[opt]}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Explanation (shown after answering) */}
+                {isAnswered && (
+                  <div className={`mt-2 ml-10 text-xs rounded p-2 ${
+                    isCorrect
+                      ? "bg-green-100/50 text-green-800 dark:bg-green-900/30 dark:text-green-200"
+                      : "bg-red-100/50 text-red-800 dark:bg-red-900/30 dark:text-red-200"
+                  }`}>
+                    {isCorrect ? (
+                      <span className="font-semibold">¡Correcto! </span>
+                    ) : (
+                      <span className="font-semibold">Incorrecto. </span>
+                    )}
+                    {ind.explanation}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {/* Final score */}
+          {totalAnswered === indicators.length && (
+            <div className={`mt-4 rounded-lg border-2 p-4 text-center ${
+              totalCorrect === indicators.length
+                ? "border-green-500 bg-green-50 dark:bg-green-950/30"
+                : totalCorrect >= indicators.length * 0.7
+                  ? "border-amber-500 bg-amber-50 dark:bg-amber-950/30"
+                  : "border-red-500 bg-red-50 dark:bg-red-950/30"
+            }`}>
+              <p className="text-2xl font-bold">
+                {totalCorrect} / {indicators.length}
+              </p>
+              <p className="text-sm mt-1">
+                {totalCorrect === indicators.length
+                  ? "¡Perfecto! Dominas la clasificación de indicadores."
+                  : totalCorrect >= indicators.length * 0.7
+                    ? "¡Bien! Repasa los que fallaste y vuelve a intentarlo."
+                    : "Necesitas repasar. Lee la guía de arriba y vuelve a intentarlo."}
+              </p>
+              <button
+                onClick={resetQuiz}
+                className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+              >
+                <RotateCcw className="h-4 w-4" />
+                Intentar de nuevo
+              </button>
+            </div>
+          )}
+
+          {/* Summary (always visible) */}
           <div className="mt-6 rounded-lg border p-4 bg-muted/50">
             <h4 className="font-semibold mb-3">Resumen</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">

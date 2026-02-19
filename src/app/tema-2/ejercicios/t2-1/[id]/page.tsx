@@ -781,6 +781,46 @@ function Ejercicio3() {
 
       // Lower triangle (gen 2000)
       { x: 2000.67, y: 0.33, text: "23", fontSize: 10, color: "#9ca3af" },
+
+      // ── Supervivientes en edad cumplida (cian) ──
+      // Gen c, edad exacta x → posición (c+x+0.15, x-0.12): justo debajo de la línea de edad
+      // Gen 1996: l₁=2.142, l₂=2.141, l₃=2.139, l₄=2.139
+      { x: 1997.18, y: 0.88, text: "2.142", fontSize: 7, color: "#22d3ee" },
+      { x: 1998.18, y: 1.88, text: "2.141", fontSize: 7, color: "#22d3ee" },
+      { x: 1999.18, y: 2.88, text: "2.139", fontSize: 7, color: "#22d3ee" },
+      { x: 2000.18, y: 3.88, text: "2.139", fontSize: 7, color: "#22d3ee" },
+      // Gen 1997: l₁=2.077, l₂=2.071, l₃=2.069
+      { x: 1998.18, y: 0.88, text: "2.077", fontSize: 7, color: "#22d3ee" },
+      { x: 1999.18, y: 1.88, text: "2.071", fontSize: 7, color: "#22d3ee" },
+      { x: 2000.18, y: 2.88, text: "2.069", fontSize: 7, color: "#22d3ee" },
+      // Gen 1998: l₁=2.012, l₂=2.009
+      { x: 1999.18, y: 0.88, text: "2.012", fontSize: 7, color: "#22d3ee" },
+      { x: 2000.18, y: 1.88, text: "2.009", fontSize: 7, color: "#22d3ee" },
+      // Gen 1999: l₁=2.146
+      { x: 2000.18, y: 0.88, text: "2.146", fontSize: 7, color: "#22d3ee" },
+
+      // ── Población según calendario (magenta) ──
+      // P_x(1.1.t) → posición (t+0.12, x+0.5): a la derecha de la línea vertical
+      // P₀ a 1 de enero
+      { x: 1997.12, y: 0.5, text: "2.143", fontSize: 7, color: "#f472b6" },
+      { x: 1998.12, y: 0.5, text: "2.084", fontSize: 7, color: "#f472b6" },
+      { x: 1999.12, y: 0.5, text: "2.014", fontSize: 7, color: "#f472b6" },
+      { x: 2000.12, y: 0.5, text: "2.150", fontSize: 7, color: "#f472b6" },
+      { x: 2001.12, y: 0.5, text: "2.186", fontSize: 7, color: "#f472b6" },
+      // P₁ a 1 de enero
+      { x: 1998.12, y: 1.5, text: "2.141", fontSize: 7, color: "#f472b6" },
+      { x: 1999.12, y: 1.5, text: "2.074", fontSize: 7, color: "#f472b6" },
+      { x: 2000.12, y: 1.5, text: "2.011", fontSize: 7, color: "#f472b6" },
+      { x: 2001.12, y: 1.5, text: "2.145", fontSize: 7, color: "#f472b6" },
+      // P₂ a 1 de enero
+      { x: 1999.12, y: 2.5, text: "2.140", fontSize: 7, color: "#f472b6" },
+      { x: 2000.12, y: 2.5, text: "2.070", fontSize: 7, color: "#f472b6" },
+      { x: 2001.12, y: 2.5, text: "2.009", fontSize: 7, color: "#f472b6" },
+      // P₃ a 1 de enero
+      { x: 2000.12, y: 3.5, text: "2.139", fontSize: 7, color: "#f472b6" },
+      { x: 2001.12, y: 3.5, text: "2.068", fontSize: 7, color: "#f472b6" },
+      // P₄ a 1 de enero
+      { x: 2001.12, y: 4.5, text: "2.139", fontSize: 7, color: "#f472b6" },
     ],
   };
 
@@ -790,6 +830,8 @@ function Ejercicio3() {
     { color: "#f59e0b", label: "Generación 1998", type: "lifeline" },
     { color: "#ef4444", label: "Generación 1999", type: "lifeline" },
     { color: "#8b5cf6", label: "Generación 2000", type: "lifeline" },
+    { color: "#22d3ee", label: "Supervivientes (lₓ)", type: "line" },
+    { color: "#f472b6", label: "Población a 1 de enero", type: "line" },
   ];
 
   return (
